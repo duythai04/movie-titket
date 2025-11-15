@@ -1,0 +1,11 @@
+
+@import './variables';
+@import './reset';
+@import './layout';
+
+
+body {
+  font-family: $font-main;
+  color: $text-color;
+  line-height: 1.6;
+}
