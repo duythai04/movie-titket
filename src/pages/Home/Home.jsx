@@ -1,11 +1,13 @@
 import React from "react";
-import MovieList from "../../components/MovieList/MovieList";
+import MovieDisplay from "../../components/MovieDisplay/MovieDisplay";
+import Introduction from "../../components/Introduction/Introduction";
 
 
 function Home(){
     return(
         <div className = "home">
-            <MovieList/>
+            <Introduction/>
+             <MovieDisplay/>
         </div>
     )
 }

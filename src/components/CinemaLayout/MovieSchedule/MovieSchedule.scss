@@ -1,0 +1,90 @@
+.movie-schedule {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  h2 {
+    font-size: 22px;
+    font-weight: 700;
+    color: #1f2937;
+    margin: 0 0 8px 0;
+  }
+
+  // Thanh chọn ngày (DateSelector nằm trong đây)
+  .date-selector {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    padding-bottom: 6px;
+    scrollbar-width: thin;
+    scrollbar-color: #cbd5e1 transparent;
+
+    &::-webkit-scrollbar {
+      height: 6px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 10px;
+    }
+
+    .date-item {
+      min-width: 82px;
+      padding: 10px 0;
+      text-align: center;
+      border-radius: 12px;
+      border: 1px solid #e5e7eb;
+      background: #f8fafc;
+      color: #475569;
+      cursor: pointer;
+      transition: 0.2s ease;
+
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      font-size: 14px;
+      user-select: none;
+
+      &:hover {
+        background: #eef2ff;
+        border-color: #c7d2fe;
+      }
+
+      .weekday {
+        font-size: 13px;
+        font-weight: 600;
+        color: #64748b;
+      }
+
+      .day {
+        font-size: 16px;
+        font-weight: 700;
+        color: #1e293b;
+      }
+
+      &.active {
+        background: #1d4ed8;
+        border-color: #1d4ed8;
+        color: #ffffff;
+
+        .weekday,
+        .day {
+          color: #ffffff;
+        }
+
+        &:hover {
+          background: #1e40af;
+        }
+      }
+    }
+  }
+
+  // Tạm để trống phần danh sách phim (sẽ hoàn thiện khi bạn gửi JSX)
+  .movie-list {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+}
+

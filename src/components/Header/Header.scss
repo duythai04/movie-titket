@@ -1,80 +1,95 @@
-@import '../../styles/variable';
+@import '../../styles/variable'; 
 
 .header {
-  width: 100%;
-  background: transparent;
-  color: $text-color;
-  padding: 14px 0;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
-  position: fixed;
+  position: fixed;  
   top: 0;
   left: 0;
-  z-index: 1000;
+  width: 100%;
+  z-index: 9999;   
+  color: $text-color;
+  padding: 14px 0;
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.6);
+  transition: all 0.3s ease;
+
+  a{
+    text-decoration: none !important;
+  }
+
+  
+
 
   .header-top {
     max-width: 1300px;
     margin: 0 auto;
     padding: 0 24px;
-
     display: flex;
     align-items: center;
     justify-content: space-between;
   }
 
-  /* Logo */
   .header-logo {
     img {
-      height: 100px;
+
+      height: 150px;
       cursor: pointer;
-      transition: 0.3s ease;
+      transition: transform 0.3s ease;
 
       &:hover {
-        transform: scale(1.04);
+        transform: scale(1.05);
       }
     }
   }
 
-  /* Actions */
   .header-actions {
     display: flex;
     align-items: center;
     gap: 14px;
-  }
 
-  .btn {
-    display: flex;
-    align-items: center;
-    gap: 8px;
+    .btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #1a1a1a;
+      padding: 10px 18px;
+      border-radius: 6px;
+      border: 1px solid #333;
+      color: $text-color;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.28s ease;
 
-    background: #1a1a1a;
-    padding: 10px 18px;
-    border-radius: 6px;
-    border: 1px solid #333;
-    color: $text-color;
-    font-size: 15px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: 0.28s ease;
+      .btn-icon {
+        font-size: 20px;
+        background-color: transparent;
+      }
 
-    .btn-icon {
-      font-size: 20px;
+      &:hover {
+        background: $button-color;
+        border-color: $button-color;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(229, 9, 20, 0.35);
+      }
     }
 
-    &:hover {
+    .btn-ticket {
       background: $button-color;
       border-color: $button-color;
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(229, 9, 20, 0.35);
+
+      &:hover {
+        background: darken($button-color, 10%);
+        border-color: darken($button-color, 10%);
+      }
     }
-  }
 
-  .btn-ticket {
-    background: $button-color;
-    border-color: $button-color;
+    .btn-combo {
+      background: #333;
+      border-color: #333;
 
-    &:hover {
-      background: darken($button-color, 10%);
-      border-color: darken($button-color, 10%);
+      &:hover {
+        background: darken(#333, 10%);
+        border-color: darken(#333, 10%);
+      }
     }
   }
 
@@ -86,8 +101,8 @@
     .icon-item {
       font-size: 24px;
       cursor: pointer;
-      color: #ccc;
-      transition: 0.25s;
+      color: $text-color;
+      transition: all 0.25s;
 
       &:hover {
         color: $button-color;
@@ -120,5 +135,11 @@
     .header-icons {
       gap: 14px;
     }
+
+    .header-logo img {
+      height: 70px;
+    }
   }
 }
+
+
