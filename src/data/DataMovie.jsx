@@ -482,7 +482,7 @@ const DataMovie = [
     title_en: "The Lost Dragon Incense",
     poster_url:
       "https://cinestar.com.vn/_next/image/?url=https%3A%2F%2Fapi-website.cinestar.com.vn%2Fmedia%2Fwysiwyg%2FPosters%2F11-2025%2Fmo-dom-dom.jpg&w=2048&q=75",
-    trailer_url: "https://www.youtube.com/watch?v=fO6X58qWA_s",
+    trailer_url: "https://youtu.be/_ygZTJBJkJ4",
     synopsis:
       "Hai anh em Seita và Setsuko mất mẹ sau cuộc thả bom dữ dội của không quân Mỹ. Cả hai phải vật lộn để tồn tại ở Nhật Bản hậu Thế chiến II. Nhưng xã hội khắc nghiệt và chúng vật lộn tìm kiếm thức ăn cũng như thoát khỏi những khó khăn giữa chiến tranh.",
 

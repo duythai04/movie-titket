@@ -10,10 +10,6 @@ import "./Header.scss";
 import { useEffect } from "react";
 
 function Header() {
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
   return (
     <header className="header">
       <div className="header-top">

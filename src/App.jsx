@@ -4,7 +4,6 @@ import Header from "./components/Header/Header";
 import Home from "./pages/Home/Home";
 import MovieList from "./pages/MovieList/MovieList";
 import ScrollToTop from "./components/ScrollToTop/ScrollToTop";
-import Trailer from "./components/Trailler/Trailer";
 import MovieDetail from "./pages/MovieDetail/MovieDetail";
 
 function App() {
@@ -16,7 +15,6 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/movies" element={<MovieList />} />
-          <Route path="/trailer/:id" element={<Trailer />} />
           <Route path="/movieDetail/:id" element={<MovieDetail />} />
         </Routes>
       </div>

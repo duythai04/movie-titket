@@ -7,7 +7,7 @@ function MovieDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const movie = DataMovie.find((m) => m.movie_id.toString() === id);
+  const movie = DataMovie.find((m) => m.movie_id === id);
 
   if (!movie) {
     return <div>Phim không tồn tại</div>;
@@ -28,13 +28,14 @@ function MovieDetail() {
         <div className="movie-text">
           <h1>{movie.title_vi}</h1>
           <p>
-            <strong>Thể loại:</strong> {movie.genres}
+            <strong>Thể loại:</strong> {movie.genres.join(", ")}
           </p>
           <p>
             <strong>Đạo diễn:</strong> {movie.director}
           </p>
           <p>
-            <strong>Diễn viên:</strong> {movie.cast}
+            <strong>Diễn viên:</strong>
+            {movie.cast.map((actor) => actor.actor_name).join(", ")}
           </p>
           <p>
             <strong>Thời lượng:</strong> {movie.duration_mins} phút
@@ -42,7 +43,6 @@ function MovieDetail() {
           <p>
             <strong>Mô tả:</strong> {movie.synopsis}
           </p>
-
           <div className="trailer-section">
             <h3>Trailer</h3>
             {movie.trailer_url.includes("youtube.com") ||
