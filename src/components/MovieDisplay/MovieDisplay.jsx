@@ -1,33 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
 import DataMovie from "../../data/DataMovie";
 import "./MovieDisplay.scss";
 import { Link } from "react-router-dom";
 
-function MovieList() {
-  // Tách 2 danh sách
-  const nowShowing = DataMovie.filter(movie => movie.status === "now");
-  const comingSoon = DataMovie.filter(movie => movie.status === "coming");
+function MovieDisplay() {
+  const nowShowing = DataMovie.filter((movie) => movie.status === "now");
+  const comingSoon = DataMovie.filter((movie) => movie.status === "coming");
 
-  // Lấy 5 phim đầu
-  const nowShowingFive = nowShowing.slice(0, 5);
-  const comingSoonFive = comingSoon.slice(0, 5);
+  const [showAllnow, setShowAllnow] = useState(false);
+  const [showAllComing, setShowAllComing] = useState(false);
 
-  // Hàm render
   const renderMovies = (list) => (
     <div className="movie-container">
       {list.map((item, index) => (
         <div key={index} className="movie-wrapper">
           <div className="movie-item">
-
             <div className="movie-img">
               <img src={item.poster_url} alt={item.title_vi} />
 
               <div className="overlay">
                 <button className="btn-trailer">Xem trailer</button>
-                <button className="btn-ticket">Đặt vé</button>
+
+                <Link to={`/movieDetail/${item.movie_id}`}>
+                  <button className="btn-ticket">Đặt vé</button>
+                </Link>
               </div>
             </div>
-
             <div className="movie-name">{item.title_vi}</div>
           </div>
         </div>
@@ -37,29 +35,29 @@ function MovieList() {
 
   return (
     <div className="movie-section">
-
-      {/* PHIM ĐANG CHIẾU */}
       <div className="title">PHIM ĐANG CHIẾU</div>
-      {renderMovies(nowShowingFive)}
+      {renderMovies(showAllnow ? nowShowing : nowShowing.slice(0, 5))}
 
       <div className="more">
-        <Link to="/movies/now">
-          <button>Xem thêm</button>
-        </Link>
+        <div>
+          {!showAllnow && (
+            <button onClick={() => setShowAllnow(true)}>Xem thêm</button>
+          )}
+        </div>
       </div>
 
-      {/* PHIM SẮP CHIẾU */}
       <div className="title">PHIM SẮP CHIẾU</div>
-      {renderMovies(comingSoonFive)}
+      {renderMovies(showAllComing ? comingSoon : comingSoon.slice(0, 5))}
 
       <div className="more">
-        <Link to="/movies/coming">
-          <button>Xem thêm</button>
-        </Link>
+        <div>
+          {!showAllComing && (
+            <button onClick={() => setShowAllComing(true)}>Xem thêm</button>
+          )}
+        </div>
       </div>
-
     </div>
   );
 }
 
-export default MovieList;
+export default MovieDisplay;

@@ -1,12 +1,12 @@
-import React from 'react';
-import './MovieCard.scss';
+import React from "react";
+import "./MovieCard.scss";
 
 const MovieCard = ({ movie, selectedDate }) => {
   const todayShowtimes = movie.cinemas
-    .flatMap(cinema => 
-      (cinema.showtimes[selectedDate] || []).map(time => ({
+    .flatMap((cinema) =>
+      (cinema.showtimes[selectedDate] || []).map((time) => ({
         time,
-        cinema: cinema.cinema_name || cinema.cinema_id
+        cinema: cinema.cinema_name || cinema.cinema_id,
       }))
     )
     .sort((a, b) => a.time.localeCompare(b.time));
@@ -17,7 +17,7 @@ const MovieCard = ({ movie, selectedDate }) => {
 
       <div className="info">
         <div className="top-line">
-          <span className="genre">{movie.genres.join(', ')}</span>
+          <span className="genre">{movie.genres.join(", ")}</span>
           <span className="duration">{movie.duration_mins} phút</span>
           <span className="format">2D</span>
         </div>
@@ -25,9 +25,13 @@ const MovieCard = ({ movie, selectedDate }) => {
         <h3 className="title">{movie.title_vi}</h3>
 
         <div className="details">
-          <p>Khởi chiếu: {new Date(movie.release_date).toLocaleDateString('vi-VN')}</p>
+          <p>
+            Khởi chiếu:{" "}
+            {new Date(movie.release_date).toLocaleDateString("vi-VN")}
+          </p>
           <p className={`rating ${movie.age_rating.toLowerCase()}`}>
-            {movie.age_rating} - Phim được phép phổ biến đến người xem từ {movie.age_rating.replace('T', '')} tuổi
+            {movie.age_rating} - Phim được phép phổ biến đến người xem từ{" "}
+            {movie.age_rating.replace("T", "")} tuổi
           </p>
         </div>
 
@@ -43,7 +47,10 @@ const MovieCard = ({ movie, selectedDate }) => {
             </div>
           </div>
         ) : (
-          <div className="no-showtime">Không có suất chiếu ngày {selectedDate.split('-').reverse().join('/')}</div>
+          <div className="no-showtime">
+            Không có suất chiếu ngày{" "}
+            {selectedDate.split("-").reverse().join("/")}
+          </div>
         )}
       </div>
     </div>

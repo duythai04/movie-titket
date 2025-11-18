@@ -1,22 +1,19 @@
-@import '../../styles/variable'; 
+@import "../../styles/variable";
 
 .header {
-  position: fixed;  
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 9999;   
+  z-index: 9999;
   color: $text-color;
   padding: 14px 0;
   box-shadow: 0 1px 8px rgba(0, 0, 0, 0.6);
   transition: all 0.3s ease;
 
-  a{
+  a {
     text-decoration: none !important;
   }
-
-  
-
 
   .header-top {
     max-width: 1300px;
@@ -29,7 +26,6 @@
 
   .header-logo {
     img {
-
       height: 150px;
       cursor: pointer;
       transition: transform 0.3s ease;
@@ -141,5 +137,3 @@
     }
   }
 }
-
-

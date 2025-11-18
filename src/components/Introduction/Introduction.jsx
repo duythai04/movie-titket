@@ -1,8 +1,7 @@
 import React from "react";
 import img1 from "../../assets/img1.png";
 import img2 from "../../assets/img2.png";
-import './Introduction.scss'
-
+import "./Introduction.scss";
 
 function Introduction() {
   return (
@@ -22,7 +21,13 @@ function Introduction() {
 
           <div className="discount">
             <div className="discount-description">
-              <p>Chỉ cần xuất trình thẻ sinh viên, bạn sẽ được giảm giá vé cực hấp dẫn, áp dụng cho hầu hết các suất chiếu trong ngày. Thỏa sức xem phim yêu thích, tiết kiệm chi phí và còn nhận thêm nhiều ưu đãi combo bắp nước. Nhanh tay rủ hội bạn đến rạp để săn deal ngay hôm nay!</p>
+              <p>
+                Chỉ cần xuất trình thẻ sinh viên, bạn sẽ được giảm giá vé cực
+                hấp dẫn, áp dụng cho hầu hết các suất chiếu trong ngày. Thỏa sức
+                xem phim yêu thích, tiết kiệm chi phí và còn nhận thêm nhiều ưu
+                đãi combo bắp nước. Nhanh tay rủ hội bạn đến rạp để săn deal
+                ngay hôm nay!
+              </p>
             </div>
           </div>
         </div>

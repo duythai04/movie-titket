@@ -11,7 +11,7 @@ const DateSelector = ({ dates, selectedDate, onSelect }) => {
 
         return (
           <div
-            key={date}  
+            key={date}
             className={`date-item ${selectedDate === date ? "active" : ""}`}
             onClick={() => onSelect(date)}
           >

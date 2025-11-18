@@ -4,28 +4,25 @@ import { LuPopcorn } from "react-icons/lu";
 import { IoSearchOutline } from "react-icons/io5";
 import { FaRegUserCircle } from "react-icons/fa";
 import { MdLanguage } from "react-icons/md";
-import { Link } from "react-router-dom"; 
+import { Link } from "react-router-dom";
 import logo from "../../assets/logo.png";
 import "./Header.scss";
 import { useEffect } from "react";
 
-
 function Header() {
   useEffect(() => {
-  window.scrollTo(0, 0);
-}, []);
-
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <header className="header">
       <div className="header-top">
-
-        <Link to = "/" className="header-logo">
+        <Link to="/" className="header-logo">
           <img src={logo} alt="Logo" />
         </Link>
 
-        <div className="header-actions" >
-          <Link to = "/movies" className="btn btn-ticket">
+        <div className="header-actions">
+          <Link to="/movies" className="btn btn-ticket">
             <TiTicket className="btn-icon" />
             ĐẶT VÉ NGAY
           </Link>
@@ -49,7 +46,6 @@ function Header() {
             <MdLanguage />
           </div>
         </div>
-
       </div>
     </header>
   );
