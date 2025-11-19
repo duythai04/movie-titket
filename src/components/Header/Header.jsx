@@ -7,7 +7,6 @@ import { MdLanguage } from "react-icons/md";
 import { Link } from "react-router-dom";
 import logo from "../../assets/logo.png";
 import "./Header.scss";
-import { useEffect } from "react";
 
 function Header() {
   return (

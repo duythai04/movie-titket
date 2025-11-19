@@ -1,0 +1,72 @@
+.seat-wrapper {
+  width: 100%;
+  text-align: center;
+  color: #fff;
+  margin-top: 50px;
+}
+
+.screen {
+  width: 50%;
+  margin: 20px auto;
+  padding: 20px;
+  background: linear-gradient(to bottom, #ffa726, #ff9800);
+  color: #000;
+  font-weight: bold;
+  border-radius: 0 0 100% 100% / 0 0 90% 90%;
+  position: relative;
+  box-shadow: 0px 20px 40px rgba(255, 152, 0, 0.5);
+}
+
+.seat-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 70px auto;
+  width: fit-content;
+}
+
+.seat-row {
+  display: flex;
+  gap: 8px;
+}
+
+.seat {
+  width: 40px;
+  height: 40px;
+  background: #3f3f3f;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-size: 12px;
+  transition: 0.2s;
+}
+
+.seat:hover {
+  background: #616161;
+}
+
+.seat.selected {
+  background: #1e88e5; // ghế bạn chọn (màu xanh)
+}
+
+.seat.vip {
+  background: #ff9800; // ghế vip (cam)
+}
+
+.seat.couple {
+  background: #d31511; // ghế đôi (đỏ)
+}
+
+.seat.booked {
+  background: url("https://i.imgur.com/2SB9ZSa.png");
+  background-size: cover;
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+.info {
+  margin-top: 20px;
+  font-size: 18px;
+}
