@@ -1,4 +1,5 @@
-import mysql from "mysql2/index.js";
+import mysql from "mysql2/promise";
+
 import { env } from "./environment.js";
 
 const pool = mysql.createPool({
@@ -9,7 +10,4 @@ const pool = mysql.createPool({
   port: env.DB_PORT,
 });
 
-// Convert callback → Promise
-const db = pool.promise();
-
-export default db;
+export default pool;
