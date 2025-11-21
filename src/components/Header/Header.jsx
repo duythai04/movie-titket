@@ -1,4 +1,6 @@
 import React from "react";
+
+// đây là chỉnh sửa
 import { TiTicket } from "react-icons/ti";
 import { LuPopcorn } from "react-icons/lu";
 import { IoSearchOutline } from "react-icons/io5";
