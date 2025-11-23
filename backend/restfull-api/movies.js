@@ -375,7 +375,7 @@ const DataMovie = [
     language: "Tiếng Việt",
     subtitles: ["Việt", "Anh"],
     director: "Lâm Hạo Dân",
-    status: "coming",
+    status: "soon",
     cast: [
       { actor_name: "Quang Tuấn", role: "Tâm" },
       { actor_name: "Ma Ran Đô", role: "Tuấn" },
@@ -470,7 +470,7 @@ const DataMovie = [
     language: "Tiếng Việt",
     subtitles: ["Việt", "Anh"],
     director: "Lâm Hạo Dân",
-    status: "coming",
+    status: "soon",
     cast: [
       { actor_name: "Quang Tuấn", role: "Tâm" },
       { actor_name: "Ma Ran Đô", role: "Tuấn" },
@@ -566,7 +566,7 @@ const DataMovie = [
     language: "Tiếng Trung (Phụ đề Việt)",
     subtitles: ["Việt", "Anh"],
     director: "Trương Tử Hào",
-    status: "coming",
+    status: "soon",
     cast: [
       { actor_name: "Tào Hữu Ninh", role: "Nhân vật chính" },
       { actor_name: "Lưu Dĩ Hào", role: "Bạn thân" },
@@ -660,7 +660,7 @@ const DataMovie = [
     language: "Tiếng Hàn (Phụ đề Việt)",
     subtitles: ["Việt", "Anh"],
     director: "Kim Sung-hoon",
-    status: "coming",
+    status: "soon",
     cast: [
       { actor_name: "Jung Ryeo-won", role: "Nữ chính" },
       { actor_name: "Lee Jung-eun", role: "Mẹ" },
@@ -738,7 +738,7 @@ const DataMovie = [
     language: "Tiếng Thái (Phụ đề Việt)",
     subtitles: ["Việt", "Anh"],
     director: "Banjong Pisanthanakun",
-    status: "coming",
+    status: "soon",
     cast: [
       { actor_name: "Mario Maurer", role: "Mak" },
       { actor_name: "Davika Hoorne", role: "Nak" },
@@ -884,7 +884,7 @@ const DataMovie = [
     language: "Mỹ",
     subtitles: ["Việt", "Anh"],
     director: "Edgar Wright",
-    status: "coming",
+    status: "soon",
     cast: [
       { actor_name: " Glen Powell", role: "Tâm" },
       { actor_name: "William H", role: "Tuấn" },
@@ -1184,7 +1184,7 @@ const DataMovie = [
     language: "Mỹ",
     subtitles: ["Việt", "Anh"],
     director: " Nian Wels",
-    status: "coming",
+    status: "soon",
     cast: [
       { actor_name: " Glen Powell", role: "Tâm" },
       { actor_name: "William H", role: "Tuấn" },
@@ -1241,7 +1241,7 @@ const DataMovie = [
     language: "Việt Nam",
     subtitles: ["Việt", "Anh"],
     director: " Nguyễn Ngọc Lâm",
-    status: "coming",
+    status: "soon",
     cast: [
       { actor_name: " Glen Powell", role: "Tâm" },
       { actor_name: "William H", role: "Tuấn" },
@@ -1298,7 +1298,7 @@ const DataMovie = [
     language: "Mỹ",
     subtitles: ["Việt", "Anh"],
     director: " Jon M. Chu",
-    status: "coming",
+    status: "soon",
     cast: [
       { actor_name: " Glen Powell", role: "Tâm" },
       { actor_name: "William H", role: "Tuấn" },
@@ -1355,7 +1355,7 @@ const DataMovie = [
     language: "Hàn",
     subtitles: ["Việt", "Anh"],
     director: " Nam Dae Jung",
-    status: "coming",
+    status: "soon",
     cast: [
       { actor_name: " Glen Powell", role: "Tâm" },
       { actor_name: "William H", role: "Tuấn" },

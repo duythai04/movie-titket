@@ -16,7 +16,7 @@ function MovieDisplay() {
   }, []);
 
   const nowShowing = movies.filter((movie) => movie.status === "now");
-  const comingSoon = movies.filter((movie) => movie.status === "coming");
+  const comingSoon = movies.filter((movie) => movie.status === "soon");
 
   const renderMovies = (list) => (
     <div className="movie-container">
