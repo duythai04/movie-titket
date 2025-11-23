@@ -5,6 +5,8 @@ import Home from "./pages/Home/Home";
 import MovieList from "./pages/MovieList/MovieList";
 import ScrollToTop from "./components/ScrollToTop/ScrollToTop";
 import MovieDetail from "./pages/MovieDetail/MovieDetail";
+import Register from "./components/Auth/Register";
+import Login from "./components/Auth/Login";
 
 function App() {
   return (
@@ -16,6 +18,8 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/movies" element={<MovieList />} />
           <Route path="/movieDetail/:id" element={<MovieDetail />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
         </Routes>
       </div>
     </>

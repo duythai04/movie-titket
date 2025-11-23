@@ -35,9 +35,9 @@ function Header() {
             <IoSearchOutline />
           </div>
 
-          <div className="icon-item">
+          <Link to="/register" className="icon-item">
             <FaRegUserCircle />
-          </div>
+          </Link>
 
           <div className="icon-item">
             <MdLanguage />
