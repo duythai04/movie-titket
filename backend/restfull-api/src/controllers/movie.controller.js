@@ -1,21 +1,25 @@
-import * as UserService from "../services/movie.services.js";
+import { getAllMovies, getMovieById } from "../models/movie.model.js";
+
+import { getMovieDetails } from "../services/movie.services.js";
 
 export const getMovies = async (req, res) => {
   try {
-    const movies = await UserService.findAllMovies();
+    const movies = await getAllMovies();
     res.json(movies);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 };
 
-export const getMovieId = async (req, res) => {
+export const getMovieDetailController = async (req, res) => {
   try {
-    const { id } = req.params;
-    const movie = await UserService.findMovieId(id);
+    const { movie_id } = req.params;
+
+    const movie = await getMovieDetails(movie_id);
+    if (!movie) return res.status(404).json({ message: "Không tìm thấy phim" });
 
     res.json(movie);
   } catch (err) {
-    res.status(404).json({ message: err.message });
+    res.status(500).json({ message: err.message });
   }
 };

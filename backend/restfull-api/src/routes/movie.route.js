@@ -1,10 +1,12 @@
 import { Router } from "express";
-import * as UseController from "../controllers/movie.controller.js";
+import {
+  getMovies,
+  getMovieDetailController,
+} from "../controllers/movie.controller.js";
 
 const router = Router();
 
-router.get("/", UseController.getMovies);
-
-router.get("/:movie_id", UseController.getMovieId);
+router.get("/", getMovies);
+router.get("/:movie_id", getMovieDetailController);
 
 export default router;

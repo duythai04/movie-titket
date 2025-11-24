@@ -1,16 +1,25 @@
-import * as UserModel from "../models/movie.model.js";
+import {
+  getMovieById,
+  getMovieByGenresId,
+  getMovieCastId,
+  getMovieReviewId,
+  getMovieShowtimeId,
+} from "../models/movie.model.js";
 
-export const findAllMovies = async () => {
-  const users = await UserModel.getAllMovies();
-  return users;
-};
+export const getMovieDetails = async (movie_id) => {
+  const movie = await getMovieById(movie_id);
+  if (!movie) return null;
 
-export const findMovieId = async (movie_id) => {
-  const user = await UserModel.getMovieById(movie_id);
+  const genres = await getMovieByGenresId(movie_id);
+  const cast = await getMovieCastId(movie_id);
+  const reviews = await getMovieReviewId(movie_id);
+  const showtimes = await getMovieShowtimeId(movie_id);
 
-  if (!user) {
-    throw new Error("User not found");
-  }
-
-  return user;
+  return {
+    ...movie,
+    genres: genres.map((g) => g.genre_name),
+    cast: cast,
+    reviews: reviews,
+    showtimes: showtimes,
+  };
 };
