@@ -10,7 +10,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
 
   .movie-info {
     width: 100%;
@@ -56,6 +55,7 @@
           color: $text-color2;
           font-weight: bold;
         }
+
         p {
           color: #f5c518;
         }
@@ -76,7 +76,8 @@
         }
       }
 
-      .trailer-section {
+      /* 🔥 KHỚP JSX MỚI */
+      .section-btn {
         margin-top: 25px;
 
         .trailer-btn {
@@ -156,12 +157,14 @@
     }
   }
 
+  /* SHOWTIME */
   .showtimes-wrapper {
     width: 100%;
     display: flex;
     flex-direction: column;
     gap: 40px;
     margin-top: 200px;
+    background-color: transparent;
 
     .date-list {
       display: flex;
@@ -181,8 +184,8 @@
 
         .weekday {
           font-size: 15px;
-          color: $text-color;
           text-transform: capitalize;
+          color: $text-color;
           background-color: transparent;
         }
 
@@ -190,8 +193,8 @@
           font-size: 16px;
           font-weight: 600;
           margin-top: 3px;
-          background-color: transparent;
           color: $text-color;
+          background-color: transparent;
         }
 
         &.active {
@@ -224,6 +227,7 @@
     }
   }
 
+  /* RESPONSIVE */
   @media (max-width: 900px) {
     .movie-info {
       flex-direction: column;

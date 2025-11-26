@@ -29,7 +29,7 @@ function MovieDisplay() {
               <div className="overlay">
                 <button className="btn-trailer">Xem trailer</button>
 
-                <Link to={`/movieDetail/${item.movie_id}`}>
+                <Link to={`/movies/${item.movie_id}`}>
                   <button className="btn-ticket">Đặt vé</button>
                 </Link>
               </div>
