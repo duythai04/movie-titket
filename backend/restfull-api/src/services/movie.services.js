@@ -23,3 +23,4 @@ export const getMovieDetails = async (movie_id) => {
     showtimes: showtimes,
   };
 };
+  

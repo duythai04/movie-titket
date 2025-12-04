@@ -12,7 +12,7 @@ function MovieDisplay() {
     fetch("http://localhost:8080/movies")
       .then((res) => res.json())
       .then((data) => setMovies(data))
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err));  
   }, []);
 
   const nowShowing = movies.filter((movie) => movie.status === "now");

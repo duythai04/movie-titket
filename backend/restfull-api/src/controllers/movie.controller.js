@@ -14,7 +14,6 @@ export const getMovies = async (req, res) => {
 export const getMovieDetailController = async (req, res) => {
   try {
     const { movie_id } = req.params;
-
     const movie = await getMovieDetails(movie_id);
     if (!movie) return res.status(404).json({ message: "Không tìm thấy phim" });
 
