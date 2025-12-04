@@ -46,7 +46,6 @@ function Register() {
 
       alert(res.data.message);
 
-      // Chuyển hướng sang trang chủ
       navigate("/login");
     } catch (err) {
       console.error(err);
@@ -60,7 +59,6 @@ function Register() {
     }
   };
 
-  // Nhấn ra ngoài overlay → chuyển sang trang chủ
   const handleOutside = (e) => {
     if (e.target.classList.contains("auth-overlay")) {
       navigate("/");
@@ -70,7 +68,6 @@ function Register() {
   return (
     <div className="auth-overlay" onClick={handleOutside}>
       <div className="auth-container">
-        {/* Nút đóng */}
         <button className="close-btn" onClick={() => navigate("/")}>
           ×
         </button>

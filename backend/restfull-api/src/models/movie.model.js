@@ -43,3 +43,4 @@ export const getMovieShowtimeId = async (movie_id) => {
   );
   return rows;
 };
+  

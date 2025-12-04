@@ -13,5 +13,11 @@ function Banner(){
     slidesToScroll: 1,
   };
 
+  return(
+    
+  )
+
+
+
 }
 export default Banner;
