@@ -7,7 +7,7 @@ const dbConfig = {
   host: "localhost",
   user: "root",
   password: "230304",
-  database: "movie_booking_system",
+  database: "cinema_booking",
   multipleStatements: true,
 };
 

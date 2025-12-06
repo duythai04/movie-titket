@@ -28,7 +28,6 @@ function Login() {
         form
       );
 
-      alert("Đăng nhập thành công!");
 
       // Lưu token (nếu backend trả về)
       if (res.data.token) {
