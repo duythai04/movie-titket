@@ -31,7 +31,7 @@
       align-items: center;
       justify-content: center;
       gap: 10px;
-      font-size: 13px;
+      font-size: 10px;
       margin-bottom: 6px;
 
       .genre {
@@ -49,14 +49,14 @@
     }
 
     .title {
-      font-size: 19px;
+      font-size: 17px;
       font-weight: 700;
       margin-bottom: 6px;
       color: $text-color;
     }
 
     .details {
-      font-size: 14px;
+      font-size: 12px;
       line-height: 1.45;
       margin-bottom: 12px;
       color: $second-color;
@@ -70,9 +70,10 @@
     .showtimes {
       margin-top: 10px;
 
+
       .label {
         font-weight: 700;
-        font-size: 15px;
+        font-size: 12px;
         color: $button-color;
         margin-bottom: 8px;
       }
@@ -89,7 +90,7 @@
           border-radius: 6px;
           border: 1px solid #333;
           color: #eee;
-          font-size: 14px;
+          font-size: 12px;
           transition: 0.2s ease;
 
           &:hover {
