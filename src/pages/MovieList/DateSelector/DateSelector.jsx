@@ -1,5 +1,5 @@
-import React from "react";
-import "./DateSelector.scss";
+import React from 'react';
+import './DateSelector.scss';
 
 const DateSelector = ({ selectedDate, onDateChange }) => {
   const dates = generateDates(7);
@@ -11,7 +11,7 @@ const DateSelector = ({ selectedDate, onDateChange }) => {
       {dates.map((d) => (
         <button
           key={d.full}
-          className={`date-btn ${d.full === selectedDate ? "active" : ""}`}
+          className={`date-btn ${d.full === selectedDate ? 'active' : ''}`}
           onClick={() => onDateChange(d.full)}
         >
           {d.label}
@@ -35,7 +35,7 @@ function generateDates(days) {
     const dd = date.getDate();
 
     result.push({
-      full: `${yyyy}-${String(mm).padStart(2, "0")}-${String(dd).padStart(2, "0")}`,
+      full: `${yyyy}-${String(mm).padStart(2, '0')}-${String(dd).padStart(2, '0')}`,
       label: `${dd}-${mm}-${yyyy}`,
     });
   }

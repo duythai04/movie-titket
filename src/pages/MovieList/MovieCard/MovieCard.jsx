@@ -1,37 +1,55 @@
-import React from "react";
-import "./MovieCard.scss";
+import React from 'react';
+import './MovieCard.scss';
+import { Link } from 'react-router-dom';
 
-const MovieCard = ({ movie, selectedDate }) => {
-  const todayShowtimes = movie.cinemas
+const MovieCard = ({ movie = {}, selectedDate = '' }) => {
+  if (!movie || Object.keys(movie).length === 0) return null;
+
+  const cinemas = movie.cinemas || [];
+
+  const todayShowtimes = cinemas
     .flatMap((cinema) =>
-      (cinema.showtimes[selectedDate] || []).map((time) => ({
+      (cinema.showtimes?.[selectedDate] || []).map((time) => ({
         time,
-        cinema: cinema.cinema_name || cinema.cinema_id,
-      }))
+        cinema: cinema.cinema_name || cinema.cinema_id || 'Unknown',
+      })),
     )
-    .sort((a, b) => a.time.localeCompare(b.time));
+    .sort((a, b) => String(a.time).localeCompare(String(b.time)));
+
+  const genresText = (movie.genres || []).join(', ');
+  const durationText = movie.duration_mins ?? 'N/A';
+  const poster = movie.poster_url || '';
+  const title = movie.title_vi || movie.title || 'Untitled';
+  const releaseDate = movie.release_date
+    ? new Date(movie.release_date).toLocaleDateString('vi-VN')
+    : 'N/A';
+  const ageRating = movie.age_rating || 'T0';
+  const ageClass = String(ageRating).toLowerCase();
+
+  const displayDate = selectedDate ? selectedDate.split('-').reverse().join('/') : '';
 
   return (
-    <div className="movie-card">
-      <img src={movie.poster_url} alt={movie.title_vi} className="poster" />
+    <Link
+      to={`/movies/${movie.movie_id}`}
+      className="movie-card"
+      style={{ textDecoration: 'none', color: 'inherit' }}
+    >
+      <img src={poster} alt={title} className="poster" />
 
       <div className="info">
         <div className="top-line">
-          <span className="genre">{movie.genres.join(", ")}</span>
-          <span className="duration">{movie.duration_mins} phút</span>
+          <span className="genre">{genresText}</span>
+          <span className="duration">{durationText} phút</span>
           <span className="format">2D</span>
         </div>
 
-        <h3 className="title">{movie.title_vi}</h3>
+        <h3 className="title">{title}</h3>
 
         <div className="details">
-          <p>
-            Khởi chiếu:{" "}
-            {new Date(movie.release_date).toLocaleDateString("vi-VN")}
-          </p>
-          <p className={`rating ${movie.age_rating.toLowerCase()}`}>
-            {movie.age_rating} - Phim được phép phổ biến đến người xem từ{" "}
-            {movie.age_rating.replace("T", "")} tuổi
+          <p>Khởi chiếu: {releaseDate}</p>
+          <p className={`rating ${ageClass}`}>
+            {ageRating} - Phim được phép phổ biến đến người xem từ{' '}
+            {String(ageRating).replace('T', '')} tuổi
           </p>
         </div>
 
@@ -47,13 +65,10 @@ const MovieCard = ({ movie, selectedDate }) => {
             </div>
           </div>
         ) : (
-          <div className="no-showtime">
-            Không có suất chiếu ngày{" "}
-            {selectedDate.split("-").reverse().join("/")}
-          </div>
+          <div className="no-showtime">Không có suất chiếu ngày {displayDate}</div>
         )}
       </div>
-    </div>
+    </Link>
   );
 };
 

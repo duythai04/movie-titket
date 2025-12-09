@@ -1,22 +1,32 @@
-import React, { useState } from "react";
-import Header from "../../components/Header/Header";
-import DateSelector from "./DateSelector/DateSelector";
-import MovieShow from "./MovieShow/MovieShow";
-import DataMovie from "../../data/DataMovie";
-import "./MovieList.scss";
+import React, { useEffect, useState } from 'react';
+import Header from '../../components/Header/Header';
+import DateSelector from './DateSelector/DateSelector';
+import MovieShow from './MovieShow/MovieShow';
+import './MovieList.scss';
+import axios from 'axios';
 
 function MovieList() {
-  const today = "2025-11-17";
+  const today = '2025-11-17';
   const [selectedDate, setSelectedDate] = useState(today);
+  const [movies, setMovies] = useState([]);
+
+  useEffect(() => {
+    const fectMovies = async () => {
+      try {
+        const res = await axios.get(`http://localhost:8080/movies`);
+        setMovies(res.data);
+      } catch (error) {
+        console.log('Lỗi lấy danh sách phim', error);
+      }
+    };
+    fectMovies();
+  }, []);
 
   return (
     <div className="container">
       <Header />
-      <DateSelector
-        selectedDate={selectedDate}
-        onDateChange={setSelectedDate}
-      />
-      <MovieShow movies={DataMovie} selectedDate={selectedDate} />
+      <DateSelector selectedDate={selectedDate} onDateChange={setSelectedDate} />
+      <MovieShow movies={movies} selectedDate={selectedDate} />
     </div>
   );
 }
