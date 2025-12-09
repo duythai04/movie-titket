@@ -13,7 +13,8 @@ function Header() {
     <header className="header">
       <div className="header-top">
         <Link to="/" className="header-logo">
-          <img src={logo} alt="Logo" />
+          <h1>Cinema</h1>
+
         </Link>
 
         <div className="header-actions">

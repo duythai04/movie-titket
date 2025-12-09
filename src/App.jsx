@@ -7,6 +7,7 @@ import ScrollToTop from "./components/ScrollToTop/ScrollToTop";
 import MovieDetail from "./pages/MovieDetail/MovieDetail";
 import Register from "./components/Auth/Register";
 import Login from "./components/Auth/Login";
+import Footer from "./components/Footer/Footer";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
         </Routes>
+        <Footer/>
       </div>
     </>
   );

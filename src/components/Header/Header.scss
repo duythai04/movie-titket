@@ -1,4 +1,4 @@
-@import "../../styles/variable";
+@import '../../styles/variable';
 
 .header {
   position: fixed;
@@ -26,9 +26,11 @@
   }
 
   .header-logo {
-    img {
-      height: 50px;
+    h1 {
+      font-size: 40px;
       cursor: pointer;
+      color: $button-color;
+      font-family: 'Bebas Neue', cursive;
       transition: transform 0.3s ease;
 
       &:hover {
