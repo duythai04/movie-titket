@@ -1,6 +1,6 @@
-import React from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import DataMovie from "../../data/DataMovie";
+import React from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import DataMovie from '../../data/DataMovie';
 
 // function Trailer() {
 //   const { id } = useParams();

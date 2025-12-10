@@ -214,3 +214,18 @@ CREATE TABLE order_items (
     FOREIGN KEY (ticket_id) REFERENCES tickets(ticket_id),
     FOREIGN KEY (combo_id) REFERENCES food_combo(combo_id)
 );
+
+
+-- ===========================
+-- 12. LOG ADMIN
+-- ===========================
+
+CREATE TABLE admin_logs (
+    log_id INT AUTO_INCREMENT PRIMARY KEY,
+    admin_id INT,
+    action VARCHAR(255),
+    target_table VARCHAR(255),
+    target_id VARCHAR(50),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (admin_id) REFERENCES users(user_id)
+);
