@@ -11,7 +11,9 @@ import {
   deleteUser,
 } from '../models/auth.model.js';
 
+// ============================
 // Đăng ký
+// ============================
 export const register = async (req, res) => {
   try {
     const { full_name, email, password, phone } = req.body;
@@ -41,7 +43,9 @@ export const register = async (req, res) => {
   }
 };
 
+// ============================
 // Đăng nhập
+// ============================
 export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -52,13 +56,30 @@ export const login = async (req, res) => {
     const match = await bcrypt.compare(password, user.password_hash);
     if (!match) return res.status(400).json({ message: 'Email hoặc mật khẩu sai.' });
 
-    const token = jwt.sign({ user_id: user.user_id, role: user.role }, env.JWT_SECRET, {
-      expiresIn: '7d',
-    });
+    // FIX QUAN TRỌNG: thêm email vào token
+    const token = jwt.sign(
+      {
+        user_id: user.user_id,
+        role: user.role,
+        email: user.email,
+      },
+      env.JWT_SECRET,
+      { expiresIn: '7d' },
+    );
+
+    // log để debug
+    console.log('User from DB:', user);
+    console.log('Role:', user.role);
 
     res.json({
       message: 'Đăng nhập thành công.',
       token,
+      user: {
+        id: user.user_id,
+        full_name: user.full_name,
+        email: user.email,
+        role: user.role,
+      },
     });
   } catch (error) {
     console.error('Error login:', error);
@@ -66,13 +87,17 @@ export const login = async (req, res) => {
   }
 };
 
-// Lấy thông tin cá nhân
+// ============================
+// Lấy profile
+// ============================
 export const profile = async (req, res) => {
   const user = await getUserById(req.user.user_id);
   res.json(user);
 };
 
+// ============================
 // Cập nhật profile
+// ============================
 export const updateProfile = async (req, res) => {
   const { full_name, phone, avatar_url } = req.body;
 
@@ -81,13 +106,15 @@ export const updateProfile = async (req, res) => {
   res.json({ message: 'Cập nhật thành công.' });
 };
 
+// ============================
 // Đổi mật khẩu
+// ============================
 export const changePassword = async (req, res) => {
   const { old_password, new_password } = req.body;
 
-  const user = await findUserByEmail(req.user.email);
-  const match = await bcrypt.compare(old_password, user.password_hash);
+  const user = await getUserById(req.user.user_id);
 
+  const match = await bcrypt.compare(old_password, user.password_hash);
   if (!match) return res.status(400).json({ message: 'Mật khẩu cũ sai.' });
 
   const hashed = await bcrypt.hash(new_password, 10);
@@ -96,13 +123,14 @@ export const changePassword = async (req, res) => {
   res.json({ message: 'Đổi mật khẩu thành công.' });
 };
 
-// Admin: lấy danh sách user
+// ============================
+// Admin
+// ============================
 export const listUsers = async (req, res) => {
   const users = await getAllUsers();
   res.json(users);
 };
 
-// Admin: xóa user
 export const removeUser = async (req, res) => {
   await deleteUser(req.params.id);
   res.json({ message: 'Xóa user thành công.' });

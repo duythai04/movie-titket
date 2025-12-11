@@ -1,3 +1,4 @@
+// src/authProvider.js
 import axios from 'axios';
 
 export const authProvider = {
@@ -7,17 +8,22 @@ export const authProvider = {
       password,
     });
 
-    const { token, user } = res.data;
+    const { token } = res.data;
+    if (!token) {
+      return Promise.reject('Không nhận được token!');
+    }
 
     localStorage.setItem('token', token);
-    localStorage.setItem('user', JSON.stringify(user));
+
+    const payload = JSON.parse(atob(token.split('.')[1]));
+    localStorage.setItem('role', payload.role);
 
     return Promise.resolve();
   },
 
   logout: () => {
     localStorage.removeItem('token');
-    localStorage.removeItem('user');
+    localStorage.removeItem('role');
     return Promise.resolve();
   },
 
@@ -25,5 +31,8 @@ export const authProvider = {
 
   checkError: () => Promise.resolve(),
 
-  getPermissions: () => Promise.resolve(),
+  getPermissions: () => {
+    const role = localStorage.getItem('role');
+    return Promise.resolve(role);
+  },
 };

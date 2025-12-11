@@ -1,14 +1,15 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
-import "./Auth.scss";
+// src/pages/Login.jsx
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { authProvider } from '../../admin/authProvider';
+import './Auth.scss';
 
 function Login() {
   const navigate = useNavigate();
 
   const [form, setForm] = useState({
-    email: "",
-    password: "",
+    email: '',
+    password: '',
   });
 
   const [loading, setLoading] = useState(false);
@@ -19,32 +20,24 @@ function Login() {
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     try {
-      setLoading(true);
+      // ✔ Login dùng chung authProvider
+      await authProvider.login(form);
 
-      const res = await axios.post(
-        "http://localhost:8080/api/auth/login",
-        form
-      );
+      // ✔ Lấy role từ localStorage
+      const role = localStorage.getItem('role');
 
-
-      // Lưu token (nếu backend trả về)
-      if (res.data.token) {
-        localStorage.setItem("token", res.data.token);
-      }
-
-      // Chuyển hướng sang trang chủ
-      navigate("/");
+      // ✔ Điều hướng theo quyền
+      if (role === 'admin') navigate('/admin');
+      else navigate('/');
     } catch (err) {
-      console.error(err);
-
-      const message = err.response?.data?.message || "Sai email hoặc mật khẩu!";
-
+      const message = err?.response?.data?.message || 'Sai email hoặc mật khẩu!';
       alert(message);
-    } finally {
-      setLoading(false);
     }
+
+    setLoading(false);
   };
 
   return (
@@ -55,7 +48,7 @@ function Login() {
         <form onSubmit={handleLogin}>
           <div className="input-group">
             <label>Email</label>
-            <input type="email" name="email" onChange={handleChange} required />
+            <input type="email" name="email" value={form.email} onChange={handleChange} required />
           </div>
 
           <div className="input-group">
@@ -63,13 +56,14 @@ function Login() {
             <input
               type="password"
               name="password"
+              value={form.password}
               onChange={handleChange}
               required
             />
           </div>
 
           <button className="btn-submit" disabled={loading}>
-            {loading ? "Đang đăng nhập..." : "Đăng nhập"}
+            {loading ? 'Đang đăng nhập...' : 'Đăng nhập'}
           </button>
 
           <p className="switch-text">
