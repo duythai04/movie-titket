@@ -2,6 +2,9 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { findUserByEmail, createUser } from '../models/auth.model.js';
 
+// ============================
+// Register
+// ============================
 export const register = async ({ full_name, email, password, phone }) => {
   const existingUser = await findUserByEmail(email);
   if (existingUser) throw new Error('Email đã tồn tại');
@@ -16,19 +19,26 @@ export const register = async ({ full_name, email, password, phone }) => {
     role: 'user',
   });
 
-  return { id: userId, full_name, email };
+  return { user_id: userId, full_name, email };
 };
 
+// ============================
+// Login
+// ============================
 export const login = async ({ email, password }) => {
   const user = await findUserByEmail(email);
   if (!user) throw new Error('Sai email hoặc mật khẩu');
 
-  // So sánh password người dùng nhập với password_hash trong DB
   const isValid = await bcrypt.compare(password, user.password_hash);
   if (!isValid) throw new Error('Sai email hoặc mật khẩu');
 
+  // ❗ Token chuẩn – đồng bộ với controller + middleware
   const token = jwt.sign(
-    { id: user.user_id, email: user.email, role: user.role },
+    {
+      user_id: user.user_id, // phải giữ nguyên user_id
+      email: user.email,
+      role: user.role,
+    },
     process.env.JWT_SECRET,
     { expiresIn: '7d' },
   );
@@ -36,7 +46,7 @@ export const login = async ({ email, password }) => {
   return {
     token,
     user: {
-      id: user.user_id,
+      user_id: user.user_id,
       full_name: user.full_name,
       email: user.email,
       role: user.role,

@@ -29,6 +29,7 @@ export const adminCreateMovie = async (movie) => {
 };
 
 // lấy danh sách phim (admin)
+
 export const adminGetMovies = async () => {
   const [row] = await db.query('SELECT * FROM movies WHERE movie_id = ?', [id]);
   return row[0];
@@ -68,4 +69,14 @@ export const adminUpdateMovies = async (id) => {
     movie.rating,
     id,
   ];
+
+  const [result] = await db.query(sql, params);
+  return result;
 };
+
+// xóa phim
+
+export const adminDeleteMovie = async (id) => {
+    const [result] = await db.query("DELETE FROM movies WHERE movie_id = ? ", [id]);
+    return result;
+}

@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { FaYoutube } from "react-icons/fa";
-import { useParams } from "react-router-dom";
-import SeatSelector from "../../components/SeatSelector/SeatSelector";
-import "./MovieDetail.scss";
-import axios from "axios";
+import React, { useState, useEffect } from 'react';
+import { FaYoutube } from 'react-icons/fa';
+import { useParams } from 'react-router-dom';
+import SeatSelector from '../../components/SeatSelector/SeatSelector';
+import './MovieDetail.scss';
+import axios from 'axios';
 
 function MovieDetail() {
   const { id } = useParams();
@@ -12,7 +12,9 @@ function MovieDetail() {
   const [loading, setLoading] = useState(true);
   const [showFullDesc, setShowFullDesc] = useState(false);
   const [showTrailer, setShowTrailer] = useState(false);
+
   const [selectedDate, setSelectedDate] = useState(null);
+  const [selectedShowtimeId, setSelectedShowtimeId] = useState(null);
 
   const DESCRIPTION_LIMIT = 200;
 
@@ -25,7 +27,7 @@ function MovieDetail() {
         const res = await axios.get(`http://localhost:8080/movies/${id}`);
         setMovie(res.data);
       } catch (err) {
-        console.log("Lỗi khi lấy dữ liệu:", err);
+        console.log('Lỗi khi lấy dữ liệu:', err);
       } finally {
         setLoading(false);
       }
@@ -34,18 +36,22 @@ function MovieDetail() {
     fetchMovie();
   }, [id]);
 
-  // chuyển đổi showtime
+  // CHUYỂN DỮ LIỆU SHOWTIME
   const allShowtimes =
     movie?.showtimes?.reduce((acc, s) => {
-      const date = new Date(s.show_date).toISOString().split("T")[0];
+      const date = new Date(s.show_date).toISOString().split('T')[0];
 
-      const time = s.show_time.slice(0, 5);
       if (!acc[date]) acc[date] = [];
-      acc[date].push(time);
+
+      acc[date].push({
+        time: s.show_time.slice(0, 5),
+        showtime_id: s.showtime_id,
+      });
 
       return acc;
     }, {}) || {};
 
+  // Tất cả ngày
   const allDates = Object.keys(allShowtimes).sort();
 
   // tự động chọn ngày đầu tiên
@@ -57,13 +63,11 @@ function MovieDetail() {
 
   // tính rating
   const reviews = movie?.reviews || [];
-  const avgRating = reviews.length
-    ? reviews.reduce((s, r) => s + r.rating, 0) / reviews.length
-    : 0;
+  const avgRating = reviews.length ? reviews.reduce((s, r) => s + r.rating, 0) / reviews.length : 0;
 
   const shortDescription =
     movie?.synopsis?.length > DESCRIPTION_LIMIT
-      ? movie.synopsis.slice(0, DESCRIPTION_LIMIT) + "..."
+      ? movie.synopsis.slice(0, DESCRIPTION_LIMIT) + '...'
       : movie?.synopsis;
 
   // rende UI
@@ -74,18 +78,13 @@ function MovieDetail() {
     <div className="movie-detail">
       {/* Movie Info */}
       <div className="movie-info">
-        <img
-          src={movie.poster_url}
-          alt={movie.title_vi}
-          className="movie-poster"
-        />
+        <img src={movie.poster_url} alt={movie.title_vi} className="movie-poster" />
 
         <div className="movie-text">
           <h1>{movie.title_vi}</h1>
 
           <p>
-            <strong>Thể loại:</strong>{" "}
-            {movie.genres?.join(", ") || "Đang cập nhật"}
+            <strong>Thể loại:</strong> {movie.genres?.join(', ') || 'Đang cập nhật'}
           </p>
 
           <p>
@@ -93,8 +92,8 @@ function MovieDetail() {
           </p>
 
           <p>
-            <strong>Diễn viên:</strong>{" "}
-            {movie.cast?.map((a) => a.actor_name).join(", ") || "Đang cập nhật"}
+            <strong>Diễn viên:</strong>{' '}
+            {movie.cast?.map((a) => a.actor_name).join(', ') || 'Đang cập nhật'}
           </p>
 
           <p>
@@ -102,16 +101,12 @@ function MovieDetail() {
           </p>
 
           <p className="description">
-            <strong>Mô tả:</strong>{" "}
-            {showFullDesc ? movie.synopsis : shortDescription}
+            <strong>Mô tả:</strong> {showFullDesc ? movie.synopsis : shortDescription}
           </p>
 
           {movie.synopsis?.length > DESCRIPTION_LIMIT && (
-            <button
-              className="toggle-desc-btn"
-              onClick={() => setShowFullDesc(!showFullDesc)}
-            >
-              {showFullDesc ? "Thu gọn" : "Xem thêm"}
+            <button className="toggle-desc-btn" onClick={() => setShowFullDesc(!showFullDesc)}>
+              {showFullDesc ? 'Thu gọn' : 'Xem thêm'}
             </button>
           )}
 
@@ -124,22 +119,16 @@ function MovieDetail() {
 
           {/* Trailer */}
           <div className="section-btn">
-            <button
-              className="trailer-btn"
-              onClick={() => setShowTrailer(!showTrailer)}
-            >
-              <FaYoutube /> {showTrailer ? "Ẩn trailer" : "Trailer"}
+            <button className="trailer-btn" onClick={() => setShowTrailer(!showTrailer)}>
+              <FaYoutube /> {showTrailer ? 'Ẩn trailer' : 'Trailer'}
             </button>
 
             {showTrailer &&
-              (movie.trailer_url.includes("youtube") ? (
+              (movie.trailer_url.includes('youtube') ? (
                 <iframe
                   width="100%"
                   height="400"
-                  src={
-                    movie.trailer_url.replace("watch?v=", "embed/") +
-                    "?autoplay=1"
-                  }
+                  src={movie.trailer_url.replace('watch?v=', 'embed/') + '?autoplay=1'}
                   title={movie.title_vi}
                   allowFullScreen
                 ></iframe>
@@ -154,39 +143,49 @@ function MovieDetail() {
 
       {/* Showtime */}
       <div className="showtimes-wrapper">
+        {/* DANH SÁCH NGÀY */}
         <div className="date-list">
           {allDates.map((date) => (
             <div
               key={date}
-              className={`date-item ${selectedDate === date ? "active" : ""}`}
-              onClick={() => setSelectedDate(date)}
+              className={`date-item ${selectedDate === date ? 'active' : ''}`}
+              onClick={() => {
+                setSelectedDate(date);
+                setSelectedShowtimeId(null);
+              }}
             >
               <div className="weekday">
-                {new Date(date).toLocaleDateString("vi-VN", {
-                  weekday: "long",
+                {new Date(date).toLocaleDateString('vi-VN', {
+                  weekday: 'long',
                 })}
               </div>
               <div className="day">
-                {new Date(date).toLocaleDateString("vi-VN", {
-                  day: "2-digit",
-                  month: "2-digit",
+                {new Date(date).toLocaleDateString('vi-VN', {
+                  day: '2-digit',
+                  month: '2-digit',
                 })}
               </div>
             </div>
           ))}
         </div>
 
+        {/* DANH SÁCH GIỜ */}
         <div className="time-list">
           {selectedDate &&
-            allShowtimes[selectedDate]?.map((time, i) => (
-              <button key={i} className="time-btn">
-                {time}
+            allShowtimes[selectedDate]?.map((item, i) => (
+              <button
+                key={i}
+                className={`time-btn ${selectedShowtimeId === item.showtime_id ? 'active' : ''}`}
+                onClick={() => setSelectedShowtimeId(item.showtime_id)}
+              >
+                {item.time}
               </button>
             ))}
         </div>
       </div>
 
-      <SeatSelector showtime={selectedDate} movie_id={movie.movie_id} />
+      {/* Gửi showtime_id xuống chọn ghế */}
+      <SeatSelector showtime_id={selectedShowtimeId} movie_id={movie.movie_id} />
     </div>
   );
 }

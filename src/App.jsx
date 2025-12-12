@@ -16,10 +16,10 @@ import ScrollToTop from './components/ScrollToTop/ScrollToTop';
 import AppAdmin from './admin/AppAddmin';
 
 function App() {
-  // 🚀 Role phải ở trong state để App tự re-render khi login
+  //  Role phải ở trong state để App tự re-render khi login
   const [role, setRole] = useState(localStorage.getItem('role'));
 
-  // 🚀 Lắng nghe sự thay đổi của localStorage (login/logout)
+  //  Lắng nghe sự thay đổi của localStorage (login/logout)
   useEffect(() => {
     const handleStorageChange = () => {
       setRole(localStorage.getItem('role'));
