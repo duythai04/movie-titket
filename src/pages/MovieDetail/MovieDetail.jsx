@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { FaYoutube } from 'react-icons/fa';
 import { useParams } from 'react-router-dom';
+import axios from 'axios';
+
 import SeatSelector from '../../components/SeatSelector/SeatSelector';
 import './MovieDetail.scss';
-import axios from 'axios';
 
 function MovieDetail() {
   const { id } = useParams();
 
   const [movie, setMovie] = useState(null);
+  const [showtimes, setShowtimes] = useState([]);
+
   const [loading, setLoading] = useState(true);
   const [showFullDesc, setShowFullDesc] = useState(false);
   const [showTrailer, setShowTrailer] = useState(false);
@@ -18,7 +21,9 @@ function MovieDetail() {
 
   const DESCRIPTION_LIMIT = 200;
 
-  // call API
+  /* =============================
+     1. FETCH MOVIE INFO
+  ============================= */
   useEffect(() => {
     if (!id) return;
 
@@ -27,7 +32,7 @@ function MovieDetail() {
         const res = await axios.get(`http://localhost:8080/movies/${id}`);
         setMovie(res.data);
       } catch (err) {
-        console.log('Lỗi khi lấy dữ liệu:', err);
+        console.error('Lỗi khi lấy movie:', err);
       } finally {
         setLoading(false);
       }
@@ -36,32 +41,56 @@ function MovieDetail() {
     fetchMovie();
   }, [id]);
 
-  // CHUYỂN DỮ LIỆU SHOWTIME
-  const allShowtimes =
-    movie?.showtimes?.reduce((acc, s) => {
-      const date = new Date(s.show_date).toISOString().split('T')[0];
+  /* =============================
+     2. FETCH SHOWTIMES OF MOVIE
+  ============================= */
+  useEffect(() => {
+    if (!id) return;
 
-      if (!acc[date]) acc[date] = [];
+    const fetchShowtimes = async () => {
+      try {
+        const res = await axios.get(`http://localhost:8080/api/showtimes/movie/${id}`);
+        setShowtimes(res.data);
+      } catch (err) {
+        console.error('Lỗi khi lấy showtime:', err);
+      }
+    };
 
-      acc[date].push({
-        time: s.show_time.slice(0, 5),
-        showtime_id: s.showtime_id,
-      });
+    fetchShowtimes();
+  }, [id]);
 
-      return acc;
-    }, {}) || {};
+  /* =============================
+     3. GROUP SHOWTIME BY DATE
+  ============================= */
+  const showtimeByDate = showtimes.reduce((acc, s) => {
+    const date = s.show_date;
 
-  // Tất cả ngày
-  const allDates = Object.keys(allShowtimes).sort();
+    if (!acc[date]) acc[date] = [];
 
-  // tự động chọn ngày đầu tiên
+    acc[date].push({
+      showtime_id: s.showtime_id,
+      time: s.show_time.slice(0, 5),
+      format: s.format,
+      price: s.price,
+    });
+
+    return acc;
+  }, {});
+
+  const allDates = Object.keys(showtimeByDate).sort();
+
+  /* =============================
+     4. AUTO SELECT FIRST DATE
+  ============================= */
   useEffect(() => {
     if (allDates.length > 0 && !selectedDate) {
       setSelectedDate(allDates[0]);
     }
   }, [allDates, selectedDate]);
 
-  // tính rating
+  /* =============================
+     5. CALC RATING
+  ============================= */
   const reviews = movie?.reviews || [];
   const avgRating = reviews.length ? reviews.reduce((s, r) => s + r.rating, 0) / reviews.length : 0;
 
@@ -70,13 +99,15 @@ function MovieDetail() {
       ? movie.synopsis.slice(0, DESCRIPTION_LIMIT) + '...'
       : movie?.synopsis;
 
-  // rende UI
+  /* =============================
+     RENDER
+  ============================= */
   if (loading) return <div>Đang tải...</div>;
   if (!movie) return <div>Phim không tồn tại</div>;
 
   return (
     <div className="movie-detail">
-      {/* Movie Info */}
+      {/* ================= MOVIE INFO ================= */}
       <div className="movie-info">
         <img src={movie.poster_url} alt={movie.title_vi} className="movie-poster" />
 
@@ -117,14 +148,14 @@ function MovieDetail() {
             </p>
           </div>
 
-          {/* Trailer */}
+          {/* ================= TRAILER ================= */}
           <div className="section-btn">
             <button className="trailer-btn" onClick={() => setShowTrailer(!showTrailer)}>
               <FaYoutube /> {showTrailer ? 'Ẩn trailer' : 'Trailer'}
             </button>
 
             {showTrailer &&
-              (movie.trailer_url.includes('youtube') ? (
+              (movie.trailer_url?.includes('youtube') ? (
                 <iframe
                   width="100%"
                   height="400"
@@ -141,9 +172,9 @@ function MovieDetail() {
         </div>
       </div>
 
-      {/* Showtime */}
+      {/* ================= SHOWTIMES ================= */}
       <div className="showtimes-wrapper">
-        {/* DANH SÁCH NGÀY */}
+        {/* DATE LIST */}
         <div className="date-list">
           {allDates.map((date) => (
             <div
@@ -169,23 +200,25 @@ function MovieDetail() {
           ))}
         </div>
 
-        {/* DANH SÁCH GIỜ */}
+        {/* TIME LIST */}
         <div className="time-list">
           {selectedDate &&
-            allShowtimes[selectedDate]?.map((item, i) => (
+            showtimeByDate[selectedDate]?.map((item) => (
               <button
-                key={i}
+                key={item.showtime_id}
                 className={`time-btn ${selectedShowtimeId === item.showtime_id ? 'active' : ''}`}
                 onClick={() => setSelectedShowtimeId(item.showtime_id)}
               >
-                {item.time}
+                {item.time} ({item.format})
               </button>
             ))}
         </div>
       </div>
 
-      {/* Gửi showtime_id xuống chọn ghế */}
-      <SeatSelector showtime_id={selectedShowtimeId} movie_id={movie.movie_id} />
+      {/* ================= SEAT SELECTOR ================= */}
+      {selectedShowtimeId && (
+        <SeatSelector showtime_id={selectedShowtimeId} movie_id={movie.movie_id} />
+      )}
     </div>
   );
 }

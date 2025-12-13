@@ -1,72 +1,50 @@
-import React, { useEffect, useState } from "react";
-import { seatRows } from "./SeatsData";
-import "./SeatSelector.scss";
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import './SeatSelector.scss';
 
-const VIP_SEATS = ["D", "E", "F", "G"].flatMap((row) =>
-  Array.from({ length: 11 }, (_, i) => `${row}${i + 1}`)
-);
+export default function SeatSelector({ showtime_id }) {
+  const [room, setRoom] = useState(null);
+  const [seats, setSeats] = useState([]);
+  const [selectedSeats, setSelectedSeats] = useState([]);
+  const [timeLeft, setTimeLeft] = useState(5 * 60); // 5 phút
+  const [loading, setLoading] = useState(false);
 
-const COUPLE_SEATS = ["H"].flatMap((row) =>
-  Array.from({ length: 11 }, (_, i) => `${row}${i + 1}`)
-);
-const BOOKED_SEATS = ["E5", "E6", "F5", "F6", "G5", "G6"];
-
-export default function SeatSelector() {
-  const [selected, setSelected] = useState([]);
-
-  const toggleSeat = (seat) => {
-    // không cho chọn ghế đã đặt
-    if (BOOKED_SEATS.includes(seat)) return;
-
-    // nếu không phải ghế đôi → xử lý bình thường
-    if (!COUPLE_SEATS.includes(seat)) {
-      if (selected.includes(seat)) {
-        setSelected(selected.filter((s) => s !== seat));
-      } else {
-        setSelected([...selected, seat]);
-      }
-      return;
-    }
-
-    // XỬ LÝ GHẾ ĐÔI
-
-    const row = seat[0];
-    const num = parseInt(seat.slice(1));
-    const pairSeat = num % 2 === 0 ? `${row}${num - 1}` : `${row}${num + 1}`;
-
-    // nếu ghế đôi kia đã bị BOOKED thì không cho chọn
-    if (BOOKED_SEATS.includes(pairSeat)) return;
-
-    const bothSeats = [seat, pairSeat];
-    const isSelected = bothSeats.every((s) => selected.includes(s));
-
-    if (isSelected) {
-      // Nếu đã chọn cả 2 → bỏ cả 2
-      setSelected(selected.filter((s) => !bothSeats.includes(s)));
-    } else {
-      // Nếu chưa chọn → chọn cả cặp
-      setSelected([...selected, seat, pairSeat]);
-    }
-  };
-
-  const getSeatClass = (seat) => {
-    if (BOOKED_SEATS.includes(seat)) return "seat booked";
-    if (selected.includes(seat)) return "seat selected";
-    if (COUPLE_SEATS.includes(seat)) return "seat couple";
-    if (VIP_SEATS.includes(seat)) return "seat vip";
-    return "seat";
-  };
-
-  const COUNTDOWN_TIME = 5 * 60;
-  const [timeleft, setTimeLeft] = useState(COUNTDOWN_TIME);
-
+  // =========================
+  // FETCH SEATS BY SHOWTIME
+  // =========================
   useEffect(() => {
+    if (!showtime_id) return;
+
+    const fetchSeats = async () => {
+      try {
+        setLoading(true);
+        const res = await axios.get(`http://localhost:8080/api/seats/showtime/${showtime_id}`);
+        setRoom(res.data.room);
+        setSeats(res.data.seats);
+        setSelectedSeats([]);
+        setTimeLeft(5 * 60);
+      } catch (err) {
+        console.error('Lỗi load ghế:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchSeats();
+  }, [showtime_id]);
+
+  // =========================
+  // COUNTDOWN GIỮ GHẾ
+  // =========================
+  useEffect(() => {
+    if (!showtime_id) return;
+
     const timer = setInterval(() => {
       setTimeLeft((prev) => {
         if (prev <= 1) {
           clearInterval(timer);
-          setSelected([]);
-          alert("Hết thời gian giữ ghế! Vui lòng chọn lại");
+          setSelectedSeats([]);
+          alert('Hết thời gian giữ ghế, vui lòng chọn lại!');
           return 0;
         }
         return prev - 1;
@@ -74,32 +52,111 @@ export default function SeatSelector() {
     }, 1000);
 
     return () => clearInterval(timer);
-  }, []);
+  }, [showtime_id]);
 
+  // =========================
+  // FORMAT TIME
+  // =========================
   const formatTime = (t) => {
-    const m = String(Math.floor(t / 60)).padStart(2, "0");
-    const s = String(t % 60).padStart(2, "0");
+    const m = String(Math.floor(t / 60)).padStart(2, '0');
+    const s = String(t % 60).padStart(2, '0');
     return `${m}:${s}`;
   };
 
+  // =========================
+  // GROUP SEATS BY ROW
+  // =========================
+  const seatsByRow = seats.reduce((acc, seat) => {
+    const row = seat.seat_code[0];
+    if (!acc[row]) acc[row] = [];
+    acc[row].push(seat);
+    return acc;
+  }, {});
+
+  // =========================
+  // TOGGLE SEAT
+  // =========================
+  const toggleSeat = (seat) => {
+    if (seat.status === 'BOOKED') return;
+
+    // xử lý ghế đôi
+    if (seat.seat_type === 'COUPLE') {
+      const num = parseInt(seat.seat_code.slice(1));
+      const pairCode =
+        num % 2 === 0 ? `${seat.seat_code[0]}${num - 1}` : `${seat.seat_code[0]}${num + 1}`;
+
+      const pairSeat = seats.find((s) => s.seat_code === pairCode);
+      if (!pairSeat || pairSeat.status === 'BOOKED') return;
+
+      const both = [seat.seat_id, pairSeat.seat_id];
+      const selected = both.every((id) => selectedSeats.includes(id));
+
+      setSelectedSeats(
+        selected
+          ? selectedSeats.filter((id) => !both.includes(id))
+          : [...new Set([...selectedSeats, ...both])],
+      );
+      return;
+    }
+
+    // ghế thường / VIP
+    setSelectedSeats((prev) =>
+      prev.includes(seat.seat_id)
+        ? prev.filter((id) => id !== seat.seat_id)
+        : [...prev, seat.seat_id],
+    );
+  };
+
+  // =========================
+  // CLASS GHẾ
+  // =========================
+  const getSeatClass = (seat) => {
+    let cls = 'seat';
+
+    if (seat.seat_type === 'VIP') cls += ' vip';
+    if (seat.seat_type === 'COUPLE') cls += ' couple';
+    if (seat.status === 'BOOKED') cls += ' booked';
+    if (selectedSeats.includes(seat.seat_id)) cls += ' selected';
+
+    return cls;
+  };
+
+  // =========================
+  // TÍNH TIỀN
+  // =========================
+  const totalPrice = selectedSeats.reduce((sum, id) => {
+    const seat = seats.find((s) => s.seat_id === id);
+    return sum + (seat?.price || 0);
+  }, 0);
+
+  if (!showtime_id) {
+    return <div className="seat-wrapper">Vui lòng chọn suất chiếu</div>;
+  }
+
+  if (loading) {
+    return <div className="seat-wrapper">Đang tải sơ đồ ghế...</div>;
+  }
+
   return (
     <div className="seat-wrapper">
-      <h2>Phòng chiếu số 13</h2>
+      <h2>{room?.room_name}</h2>
 
-      <div className="countdown">Thời gian giữ ghế: {formatTime(timeleft)}</div>
+      <div className="countdown">
+        Thời gian giữ ghế: <strong>{formatTime(timeLeft)}</strong>
+      </div>
 
       <div className="screen">MÀN HÌNH</div>
 
       <div className="seat-container">
-        {seatRows.map((row, idx) => (
-          <div key={idx} className="seat-row">
-            {row.seats.map((seat) => (
+        {Object.keys(seatsByRow).map((row) => (
+          <div key={row} className="seat-row">
+            {seatsByRow[row].map((seat) => (
               <div
-                key={seat}
+                key={seat.seat_id}
                 className={getSeatClass(seat)}
                 onClick={() => toggleSeat(seat)}
               >
-                {seat}
+                {seat.seat_code}
               </div>
             ))}
           </div>
@@ -107,8 +164,14 @@ export default function SeatSelector() {
       </div>
 
       <div className="info">
-        <p>Ghế bạn đã chọn: {selected.join(", ") || "Chưa chọn"}</p>
-        <p>Tổng tiền: {selected.length * 90000}đ</p>
+        <p>
+          Ghế đã chọn:{' '}
+          {selectedSeats.map((id) => seats.find((s) => s.seat_id === id)?.seat_code).join(', ') ||
+            'Chưa chọn'}
+        </p>
+        <p>
+          <strong>Tổng tiền:</strong> {totalPrice.toLocaleString()}đ
+        </p>
       </div>
     </div>
   );
