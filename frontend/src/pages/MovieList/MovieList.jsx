@@ -3,7 +3,7 @@ import Header from '../../components/Header/Header';
 import DateSelector from './DateSelector/DateSelector';
 import MovieShow from './MovieShow/MovieShow';
 import './MovieList.scss';
-import axios from 'axios';
+import axiosClient from '../../api/axiosClient';
 
 function MovieList() {
   const today = '2025-11-17';
@@ -13,7 +13,7 @@ function MovieList() {
   useEffect(() => {
     const fectMovies = async () => {
       try {
-        const res = await axios.get(`http://localhost:8080/movies`);
+        const res = await axiosClient.get(`/movies`);
         setMovies(res.data);
       } catch (error) {
         console.log('Lỗi lấy danh sách phim', error);

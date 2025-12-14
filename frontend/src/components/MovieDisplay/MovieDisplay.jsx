@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
-import "./MovieDisplay.scss";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import './MovieDisplay.scss';
+import { Link } from 'react-router-dom';
+import axiosClient from '../../api/axiosClient';
 
 function MovieDisplay() {
   const [movies, setMovies] = useState([]);
@@ -9,14 +10,20 @@ function MovieDisplay() {
 
   // Gọi API backend
   useEffect(() => {
-    fetch("http://localhost:8080/movies")
-      .then((res) => res.json())
-      .then((data) => setMovies(data))
-      .catch((err) => console.log(err));  
+    const fetchMovies = async () => {
+      try {
+        const res = await axiosClient.get('/movies');
+        setMovies(res.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchMovies();
   }, []);
 
-  const nowShowing = movies.filter((movie) => movie.status === "now");
-  const comingSoon = movies.filter((movie) => movie.status === "soon");
+  const nowShowing = movies.filter((movie) => movie.status === 'now');
+  const comingSoon = movies.filter((movie) => movie.status === 'soon');
 
   const renderMovies = (list) => (
     <div className="movie-container">
@@ -48,18 +55,14 @@ function MovieDisplay() {
       {renderMovies(showAllnow ? nowShowing : nowShowing.slice(0, 5))}
 
       <div className="more">
-        {!showAllnow && (
-          <button onClick={() => setShowAllnow(true)}>Xem thêm</button>
-        )}
+        {!showAllnow && <button onClick={() => setShowAllnow(true)}>Xem thêm</button>}
       </div>
 
       <div className="title">PHIM SẮP CHIẾU</div>
       {renderMovies(showAllComing ? comingSoon : comingSoon.slice(0, 5))}
 
       <div className="more">
-        {!showAllComing && (
-          <button onClick={() => setShowAllComing(true)}>Xem thêm</button>
-        )}
+        {!showAllComing && <button onClick={() => setShowAllComing(true)}>Xem thêm</button>}
       </div>
     </div>
   );

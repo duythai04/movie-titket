@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import axiosClient from '../../api/axiosClient';
 import './SeatSelector.scss';
 
 export default function SeatSelector({ showtime_id }) {
@@ -18,7 +18,7 @@ export default function SeatSelector({ showtime_id }) {
     const fetchSeats = async () => {
       try {
         setLoading(true);
-        const res = await axios.get(`http://localhost:8080/api/seats/showtime/${showtime_id}`);
+        const res = await axiosClient.get(`/api/seats/showtime/${showtime_id}`);
         setRoom(res.data.room);
         setSeats(res.data.seats);
         setSelectedSeats([]);

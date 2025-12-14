@@ -115,9 +115,27 @@ CREATE TABLE showtimes (
     FOREIGN KEY (movie_id) REFERENCES movies(movie_id),
     FOREIGN KEY (auditorium_id) REFERENCES auditoriums(auditorium_id)
 );
-
-
 -- ===========================
+-- 6. Migration: tạo bảng showtime_seats
+-- ===========================
+CREATE TABLE IF NOT EXISTS showtime_seats (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  showtime_id INT NOT NULL,
+  seat_id INT NOT NULL,
+  status ENUM('AVAILABLE','HELD','BOOKED') NOT NULL DEFAULT 'AVAILABLE',
+  held_by VARCHAR(255) DEFAULT NULL,    
+  held_until DATETIME DEFAULT NULL,
+  booking_ticket_id INT DEFAULT NULL,   
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  UNIQUE KEY uq_showtime_seat (showtime_id, seat_id),
+  INDEX idx_showtime (showtime_id),
+  FOREIGN KEY (showtime_id) REFERENCES showtimes(showtime_id) ON DELETE CASCADE,
+  FOREIGN KEY (seat_id) REFERENCES seats(seat_id) ON DELETE CASCADE
+);
+
+
+
+-- ===========================  
 -- 6. VÉ (TICKETS)
 -- ===========================
 

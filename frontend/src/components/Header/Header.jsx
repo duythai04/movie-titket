@@ -1,12 +1,11 @@
-import React from "react";
-import { TiTicket } from "react-icons/ti";
-import { LuPopcorn } from "react-icons/lu";
-import { IoSearchOutline } from "react-icons/io5";
-import { FaRegUserCircle } from "react-icons/fa";
-import { MdLanguage } from "react-icons/md";
-import { Link } from "react-router-dom";
-import logo from "../../assets/logo.png";
-import "./Header.scss";
+import React from 'react';
+import { TiTicket } from 'react-icons/ti';
+import { LuPopcorn } from 'react-icons/lu';
+import { IoSearchOutline } from 'react-icons/io5';
+import { FaRegUserCircle } from 'react-icons/fa';
+import { MdLanguage } from 'react-icons/md';
+import { Link } from 'react-router-dom';
+import './Header.scss';
 
 function Header() {
   return (
@@ -14,7 +13,6 @@ function Header() {
       <div className="header-top">
         <Link to="/" className="header-logo">
           <h1>Cinema</h1>
-
         </Link>
 
         <div className="header-actions">

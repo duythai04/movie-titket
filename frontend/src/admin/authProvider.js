@@ -1,21 +1,16 @@
-// src/authProvider.js
-import axios from 'axios';
+import axiosClient from '../api/axiosClient';
+import { jwtDecode } from 'jwt-decode';
 
 export const authProvider = {
   login: async ({ email, password }) => {
-    const res = await axios.post('http://localhost:8080/api/auth/login', {
-      email,
-      password,
-    });
+    const res = await axiosClient.post('/api/auth/login', { email, password });
 
     const { token } = res.data;
-    if (!token) {
-      return Promise.reject('Không nhận được token!');
-    }
+    if (!token) throw new Error('Không nhận được token');
 
     localStorage.setItem('token', token);
 
-    const payload = JSON.parse(atob(token.split('.')[1]));
+    const payload = jwtDecode(token);
     localStorage.setItem('role', payload.role);
 
     return Promise.resolve();
@@ -29,7 +24,13 @@ export const authProvider = {
 
   checkAuth: () => (localStorage.getItem('token') ? Promise.resolve() : Promise.reject()),
 
-  checkError: () => Promise.resolve(),
+  checkError: (error) => {
+    if (error?.response?.status === 401) {
+      localStorage.removeItem('token');
+      return Promise.reject();
+    }
+    return Promise.resolve();
+  },
 
   getPermissions: () => {
     const role = localStorage.getItem('role');

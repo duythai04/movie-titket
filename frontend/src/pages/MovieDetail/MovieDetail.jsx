@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { FaYoutube } from 'react-icons/fa';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
+import axiosClient from '../../api/axiosClient';
 
 import SeatSelector from '../../components/SeatSelector/SeatSelector';
 import './MovieDetail.scss';
@@ -21,15 +21,13 @@ function MovieDetail() {
 
   const DESCRIPTION_LIMIT = 200;
 
-  /* =============================
-     1. FETCH MOVIE INFO
-  ============================= */
+  // call api movies
   useEffect(() => {
     if (!id) return;
 
     const fetchMovie = async () => {
       try {
-        const res = await axios.get(`http://localhost:8080/movies/${id}`);
+        const res = await axiosClient.get(`/movies/${id}`);
         setMovie(res.data);
       } catch (err) {
         console.error('Lỗi khi lấy movie:', err);
@@ -41,15 +39,14 @@ function MovieDetail() {
     fetchMovie();
   }, [id]);
 
-  /* =============================
-     2. FETCH SHOWTIMES OF MOVIE
-  ============================= */
+  // call api showtime movies
+
   useEffect(() => {
     if (!id) return;
 
     const fetchShowtimes = async () => {
       try {
-        const res = await axios.get(`http://localhost:8080/api/showtimes/movie/${id}`);
+        const res = await axiosClient.get(`/api/showtimes/movie/${id}`);
         setShowtimes(res.data);
       } catch (err) {
         console.error('Lỗi khi lấy showtime:', err);
@@ -59,9 +56,7 @@ function MovieDetail() {
     fetchShowtimes();
   }, [id]);
 
-  /* =============================
-     3. GROUP SHOWTIME BY DATE
-  ============================= */
+  // showtime by date
   const showtimeByDate = showtimes.reduce((acc, s) => {
     const date = s.show_date;
 
@@ -79,18 +74,16 @@ function MovieDetail() {
 
   const allDates = Object.keys(showtimeByDate).sort();
 
-  /* =============================
-     4. AUTO SELECT FIRST DATE
-  ============================= */
+  // auto select firt date
+
   useEffect(() => {
     if (allDates.length > 0 && !selectedDate) {
       setSelectedDate(allDates[0]);
     }
   }, [allDates, selectedDate]);
 
-  /* =============================
-     5. CALC RATING
-  ============================= */
+  // calc rating
+
   const reviews = movie?.reviews || [];
   const avgRating = reviews.length ? reviews.reduce((s, r) => s + r.rating, 0) / reviews.length : 0;
 
@@ -99,15 +92,13 @@ function MovieDetail() {
       ? movie.synopsis.slice(0, DESCRIPTION_LIMIT) + '...'
       : movie?.synopsis;
 
-  /* =============================
-     RENDER
-  ============================= */
+  // render
   if (loading) return <div>Đang tải...</div>;
   if (!movie) return <div>Phim không tồn tại</div>;
 
   return (
     <div className="movie-detail">
-      {/* ================= MOVIE INFO ================= */}
+      {/* movie-info */}
       <div className="movie-info">
         <img src={movie.poster_url} alt={movie.title_vi} className="movie-poster" />
 
@@ -148,7 +139,7 @@ function MovieDetail() {
             </p>
           </div>
 
-          {/* ================= TRAILER ================= */}
+          {/* trailer*/}
           <div className="section-btn">
             <button className="trailer-btn" onClick={() => setShowTrailer(!showTrailer)}>
               <FaYoutube /> {showTrailer ? 'Ẩn trailer' : 'Trailer'}
@@ -172,9 +163,9 @@ function MovieDetail() {
         </div>
       </div>
 
-      {/* ================= SHOWTIMES ================= */}
+      {/* showtimes */}
       <div className="showtimes-wrapper">
-        {/* DATE LIST */}
+        {/* date list  */}
         <div className="date-list">
           {allDates.map((date) => (
             <div
@@ -200,7 +191,7 @@ function MovieDetail() {
           ))}
         </div>
 
-        {/* TIME LIST */}
+        {/* time list  */}
         <div className="time-list">
           {selectedDate &&
             showtimeByDate[selectedDate]?.map((item) => (
@@ -209,13 +200,13 @@ function MovieDetail() {
                 className={`time-btn ${selectedShowtimeId === item.showtime_id ? 'active' : ''}`}
                 onClick={() => setSelectedShowtimeId(item.showtime_id)}
               >
-                {item.time} ({item.format})
+                {item.time}
               </button>
             ))}
         </div>
       </div>
 
-      {/* ================= SEAT SELECTOR ================= */}
+      {/* seat selector  */}
       {selectedShowtimeId && (
         <SeatSelector showtime_id={selectedShowtimeId} movie_id={movie.movie_id} />
       )}

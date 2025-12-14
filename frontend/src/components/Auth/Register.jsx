@@ -1,18 +1,18 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
-import "./Auth.scss";
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import axiosClient from '../../api/axiosClient';
+import './Auth.scss';
 
 function Register() {
   const navigate = useNavigate();
 
   const [form, setForm] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    phone: "",
-    password: "",
-    confirmPassword: "",
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    password: '',
+    confirmPassword: '',
   });
 
   const [loading, setLoading] = useState(false);
@@ -25,7 +25,7 @@ function Register() {
     e.preventDefault();
 
     if (form.password !== form.confirmPassword) {
-      alert("Mật khẩu không trùng khớp!");
+      alert('Mật khẩu không trùng khớp!');
       return;
     }
 
@@ -33,25 +33,21 @@ function Register() {
       setLoading(true);
 
       const payload = {
-        full_name: form.firstName + " " + form.lastName,
+        full_name: form.firstName + ' ' + form.lastName,
         email: form.email,
         password: form.password,
         phone: form.phone,
       };
 
-      const res = await axios.post(
-        "http://localhost:8080/api/auth/register",
-        payload
-      );
+      const res = await axiosClient.post('/api/auth/register', payload);
 
       alert(res.data.message);
 
-      navigate("/login");
+      navigate('/login');
     } catch (err) {
       console.error(err);
 
-      const message =
-        err.response?.data?.message || "Lỗi đăng ký. Vui lòng thử lại!";
+      const message = err.response?.data?.message || 'Lỗi đăng ký. Vui lòng thử lại!';
 
       alert(message);
     } finally {
@@ -60,15 +56,15 @@ function Register() {
   };
 
   const handleOutside = (e) => {
-    if (e.target.classList.contains("auth-overlay")) {
-      navigate("/");
+    if (e.target.classList.contains('auth-overlay')) {
+      navigate('/');
     }
   };
 
   return (
     <div className="auth-overlay" onClick={handleOutside}>
       <div className="auth-container">
-        <button className="close-btn" onClick={() => navigate("/")}>
+        <button className="close-btn" onClick={() => navigate('/')}>
           ×
         </button>
 
@@ -101,13 +97,7 @@ function Register() {
 
           <div className="input-group">
             <label>Email</label>
-            <input
-              type="email"
-              name="email"
-              placeholder="Email"
-              onChange={handleChange}
-              required
-            />
+            <input type="email" name="email" placeholder="Email" onChange={handleChange} required />
           </div>
 
           <div className="input-group">
@@ -146,7 +136,7 @@ function Register() {
           </div>
 
           <button className="btn-submit" disabled={loading}>
-            {loading ? "Đang đăng ký..." : "Đăng ký"}
+            {loading ? 'Đang đăng ký...' : 'Đăng ký'}
           </button>
 
           <p className="switch-text">
