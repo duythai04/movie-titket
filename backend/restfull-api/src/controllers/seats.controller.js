@@ -17,7 +17,7 @@ export const getSeatsByShowtimeController = async (req, res) => {
       },
       seats: data.map((s) => ({
         seat_id: s.seat_id,
-        seat_code: s.seat_code,
+        seat_code: s.seat_code, 
         seat_type: s.seat_type.toUpperCase(), // NORMAL | VIP | COUPLE
         price: s.price,
         status: s.status,
