@@ -52,7 +52,7 @@
 .title {
   font-size: 14px;
   line-height: 1.5;
-  color: #cbd5f5;
+  color: $text-color;
   margin-bottom: 14px;
   min-height: 42px;
 }
@@ -66,4 +66,84 @@
   padding: 8px 16px;
   border-radius: 999px;
   letter-spacing: 0.3px;
+}
+
+@media (max-width: 1200px) {
+  .waterbubble-container {
+    padding: 120px 80px;
+    gap: 20px;
+  }
+
+  .img {
+    height: 200px;
+  }
+
+  .name {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 992px) {
+  .waterbubble-container {
+    padding: 80px 40px;
+  }
+
+  .img {
+    height: 180px;
+  }
+
+  .name {
+    font-size: 17px;
+  }
+
+  .title {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 576px) {
+  .waterbubble-container {
+    padding: 40px 16px;
+    gap: 16px;
+  }
+
+  .item {
+    &:hover {
+      transform: none;
+      box-shadow: none;
+    }
+  }
+
+  .img {
+    height: 160px;
+    padding: 12px;
+  }
+
+  .contents {
+    padding: 14px 16px;
+  }
+
+  .name {
+    font-size: 16px;
+  }
+
+  .title {
+    font-size: 12px;
+    min-height: auto;
+  }
+
+  .price {
+    font-size: 13px;
+    padding: 6px 14px;
+  }
+}
+
+@media (max-width: 400px) {
+  .img {
+    height: 140px;
+  }
+
+  .name {
+    font-size: 15px;
+  }
 }
