@@ -15,7 +15,9 @@
     "build": "npm run clean && npm run build-babel",
     "production": "npm run build && node ./build/src/server.js",
     "dev": "nodemon --exec babel-node ./src/server.js",
-    "import": "node ./import.js"
+    "import": "node ./import.js",
+    "start": "npm run build && node dist/server.js"
+
   },
   "dependencies": {
     "@babel/runtime": "^7.22.10",
