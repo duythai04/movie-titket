@@ -1,15 +1,29 @@
-// import-to-mysql.js
-import mysql from "mysql2/promise";
-import DataMovie from "./movies.js";
+import dotenv from 'dotenv';
+dotenv.config({ path: './.env' });
+
+import mysql from 'mysql2/promise';
+import DataMovie from './movies.js';
+
+
+
 
 // Cấu hình kết nối database
 const dbConfig = {
-  host: "localhost",
-  user: "root",
-  password: "230304",
-  database: "cinema_booking",
-  multipleStatements: true,
+  host: process.env.MYSQLHOST,
+  user: process.env.MYSQLUSER,
+  password: process.env.MYSQLPASSWORD,
+  database: process.env.MYSQLDATABASE,
+  port: process.env.MYSQLPORT,
 };
+
+console.log({
+  host: process.env.MYSQLHOST,
+  user: process.env.MYSQLUSER,
+  db: process.env.MYSQLDATABASE,
+  port: process.env.MYSQLPORT,
+});
+
+
 
 async function importData() {
   const connection = await mysql.createConnection(dbConfig);
