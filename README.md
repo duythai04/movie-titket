@@ -24,30 +24,30 @@ movie-titket/
 ├── .gitignore
 ├── README.md
 └── ...
-### frontend chứa phần giao diện web và logic UX/UI.
-### backend chứa API cung cấp dữ liệu phim, showtime, xử lý đặt vé và quản lý người dùng.
+- frontend chứa phần giao diện web và logic UX/UI.
+- backend chứa API cung cấp dữ liệu phim, showtime, xử lý đặt vé và quản lý người dùng.
 
 ## 🚀 Tính năng chính
 
-### ⭐ Người dùng
+* ⭐ Người dùng
 
-#### 📽️ Xem danh sách phim đang chiếu
+- 📽️ Xem danh sách phim đang chiếu
 
-#### 📅 Chọn lịch chiếu theo ngày & giờ
+- 📅 Chọn lịch chiếu theo ngày & giờ
 
-#### 🪑 Chọn ghế trên sơ đồ chỗ ngồi
+- 🪑 Chọn ghế trên sơ đồ chỗ ngồi
 
-#### 🎟️ Đặt vé & xem thông tin vé
+- 🎟️ Đặt vé & xem thông tin vé
 
-#### 🔐 Đăng ký / Đăng nhập
+- 🔐 Đăng ký / Đăng nhập
 
-### 🛠️ Quản trị (tùy triển khai)
+* 🛠️ Quản trị (tùy triển khai)
 
-#### 🎬 Thêm / sửa / xóa phim
+- 🎬 Thêm / sửa / xóa phim
 
-#### 🗓️ Quản lý lịch chiếu
+- 🗓️ Quản lý lịch chiếu
 
-#### 📊 Xem thống kê đặt vé
+- 📊 Xem thống kê đặt vé
 
 ## 🛠️ Công nghệ sử dụng
 
@@ -62,7 +62,7 @@ movie-titket/
 
 #### 1. Clone repository
 
-git clone https://github.com/duythai04/movie-titket.git
+git clone https://github.com/duythai04/movie-titket.git \\
 cd movie-titket
 
 #### 2. Backend

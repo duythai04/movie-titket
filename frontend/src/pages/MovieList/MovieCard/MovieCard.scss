@@ -1,19 +1,21 @@
 @import '../../../styles/variable';
 
+/* ================= GRID ================= */
 .movie-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 14px;
+  gap: 16px;
 }
 
+/* ================= CARD ================= */
 .movie-card {
   display: flex;
-  gap: 12px;
-  padding: 8px;
+  gap: 14px;
+  padding: 12px;
   border-radius: 14px;
   border: 1px solid rgba(255, 255, 255, 0.08);
-  transition: 0.25s ease;
   cursor: pointer;
+  transition: 0.25s ease;
 
   @media (hover: hover) {
     &:hover {
@@ -22,73 +24,90 @@
     }
   }
 
+  /* POSTER */
   .poster {
-    width: 90px;
-    height: 130px;
-    border-radius: 8px;
+    width: 100px;
+    height: 150px;
+    border-radius: 10px;
     object-fit: cover;
     flex-shrink: 0;
   }
 
+  /* INFO */
   .info {
     flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    text-align: left;
     color: $text-color;
 
+    /* TAG */
     .top-line {
       display: flex;
       flex-wrap: wrap;
       gap: 6px;
-      font-size: 9px;
-      margin-bottom: 4px;
+      font-size: 10px;
+      margin-bottom: 6px;
 
       .genre {
         color: $second-color;
+        font-weight: 600;
       }
 
       .format {
-        font-size: 9px;
-        padding: 2px 6px;
-        border-radius: 4px;
+        padding: 2px 8px;
+        border-radius: 999px;
         background: #233;
+        font-size: 9px;
+        font-weight: 600;
       }
     }
 
+    /* TITLE */
     .title {
-      font-size: 13px;
+      font-size: 14px;
       font-weight: 700;
-      margin-bottom: 4px;
+      line-height: 1.3;
+      margin-bottom: 6px;
     }
 
+    /* DETAILS */
     .details {
-      font-size: 10px;
+      font-size: 11px;
       line-height: 1.4;
-      margin-bottom: 6px;
       color: $second-color;
+      margin-bottom: 8px;
 
       .rating {
-        font-weight: 700;
         margin-top: 4px;
+        font-weight: 700;
+        color: #f5c518;
       }
     }
 
+    /* SHOWTIMES */
     .showtimes {
-      margin-top: 6px;
+      width: 100%;
+      text-align: left;
 
       .label {
-        font-size: 10px;
+        font-size: 11px;
         font-weight: 700;
         color: $button-color;
-        margin-bottom: 4px;
+        margin-bottom: 6px;
       }
 
       .times {
         display: flex;
         flex-wrap: wrap;
         gap: 6px;
+        justify-content: flex-start;
 
         .time-btn {
-          font-size: 10px;
-          padding: 5px 10px;
+          font-size: 11px;
+          padding: 6px 12px;
           border-radius: 999px;
           background: #1d1d1d;
           border: 1px solid #333;
@@ -99,46 +118,47 @@
   }
 }
 
+/* ================= TABLET ================= */
 @media (min-width: 768px) {
   .movie-grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
+    gap: 22px;
   }
 
   .movie-card {
-    gap: 16px;
-    padding: 10px;
+    gap: 18px;
 
     .poster {
-      width: 200px;
-      height: 300px;
+      width: 160px;
+      height: auto;
     }
 
     .info {
       .title {
-        font-size: 15px;
+        font-size: 12px;
       }
 
       .details {
-        font-size: 11px;
+        font-size: 10px;
       }
 
       .showtimes .time-btn {
-        font-size: 11px;
-        padding: 6px 12px;
+        font-size: 10px;
+        padding: 7px 14px;
       }
     }
   }
 }
 
+/* ================= DESKTOP ================= */
 @media (min-width: 1024px) {
   .movie-card {
     gap: 20px;
-    padding: 12px;
+    padding: 16px;
 
     .poster {
-      width: 200px;
-      height: 300px;
+      width: 180px;
+      height: 270px;
     }
 
     .info {
@@ -155,15 +175,17 @@
       }
 
       .showtimes .time-btn {
-        font-size: 12px;
-        padding: 7px 14px;
+        font-size: 13px;
+        padding: 8px 16px;
       }
     }
   }
 }
 
+/* ================= LARGE DESKTOP ================= */
 @media (min-width: 1200px) {
   .movie-grid {
+    grid-template-columns: repeat(3, 1fr);
     gap: 28px;
   }
 }
