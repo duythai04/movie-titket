@@ -47,10 +47,6 @@ const MovieCard = ({ movie = {}, selectedDate = '' }) => {
 
         <div className="details">
           <p>Khởi chiếu: {releaseDate}</p>
-          <p className={`rating ${ageClass}`}>
-            {ageRating} - Phim được phép phổ biến đến người xem từ{' '}
-            {String(ageRating).replace('T', '')} tuổi
-          </p>
         </div>
 
         {todayShowtimes.length > 0 ? (
@@ -65,7 +61,7 @@ const MovieCard = ({ movie = {}, selectedDate = '' }) => {
             </div>
           </div>
         ) : (
-          <div className="no-showtime">Không có suất chiếu ngày {displayDate}</div>
+          <div className="no-showtime"></div>
         )}
       </div>
     </Link>

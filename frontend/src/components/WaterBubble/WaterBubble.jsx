@@ -9,7 +9,7 @@ function WaterBubble() {
   useEffect(() => {
     const fetchCombos = async () => {
       try {
-        const res = await axiosClient.get('/api/combos');
+        const res = await axiosClient.get('/combos');
         setCombos(res.data);
       } catch (err) {
         console.log('lỗi load combo', err);
