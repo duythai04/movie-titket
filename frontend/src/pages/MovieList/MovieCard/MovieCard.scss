@@ -1,25 +1,33 @@
-@import "../../../styles/variable";
+@import '../../../styles/variable';
+
+.movie-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+}
 
 .movie-card {
   display: flex;
-  gap: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  gap: 12px;
+  padding: 8px;
   border-radius: 14px;
-  width: 100%;
-  padding: 5px;
-  cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.08);
   transition: 0.25s ease;
+  cursor: pointer;
 
-  &:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 10px 26px rgba(255, 80, 80, 0.25);
+  @media (hover: hover) {
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 26px rgba(255, 80, 80, 0.25);
+    }
   }
 
   .poster {
-    width: 200px;
-    height: 300px;
+    width: 90px;
+    height: 130px;
+    border-radius: 8px;
     object-fit: cover;
-    border-radius: 10px;
+    flex-shrink: 0;
   }
 
   .info {
@@ -28,83 +36,134 @@
 
     .top-line {
       display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      font-size: 10px;
-      margin-bottom: 6px;
+      flex-wrap: wrap;
+      gap: 6px;
+      font-size: 9px;
+      margin-bottom: 4px;
 
       .genre {
         color: $second-color;
-        font-weight: 500;
       }
 
       .format {
-        background: #233;
+        font-size: 9px;
         padding: 2px 6px;
-        border-radius: 5px;
-        font-size: 12px;
-        color: #d0d0d0;
+        border-radius: 4px;
+        background: #233;
       }
     }
 
     .title {
-      font-size: 17px;
+      font-size: 13px;
       font-weight: 700;
-      margin-bottom: 6px;
-      color: $text-color;
+      margin-bottom: 4px;
     }
 
     .details {
-      font-size: 12px;
-      line-height: 1.45;
-      margin-bottom: 12px;
+      font-size: 10px;
+      line-height: 1.4;
+      margin-bottom: 6px;
       color: $second-color;
 
       .rating {
         font-weight: 700;
-        margin-top: 6px;
+        margin-top: 4px;
       }
     }
 
     .showtimes {
-      margin-top: 10px;
-
+      margin-top: 6px;
 
       .label {
+        font-size: 10px;
         font-weight: 700;
-        font-size: 12px;
         color: $button-color;
-        margin-bottom: 8px;
+        margin-bottom: 4px;
       }
 
       .times {
-        margin-top: 20px;
         display: flex;
         flex-wrap: wrap;
-        gap: 10px;
+        gap: 6px;
 
         .time-btn {
-          padding: 7px 14px;
+          font-size: 10px;
+          padding: 5px 10px;
+          border-radius: 999px;
           background: #1d1d1d;
-          border-radius: 6px;
           border: 1px solid #333;
-          color: #eee;
-          font-size: 12px;
-          transition: 0.2s ease;
-
-          &:hover {
-            background: $button-color;
-            color: $text-color;
-          }
+          color: $text-color;
         }
       }
     }
   }
 }
 
-.movie-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 25px;
+@media (min-width: 768px) {
+  .movie-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .movie-card {
+    gap: 16px;
+    padding: 10px;
+
+    .poster {
+      width: 200px;
+      height: 300px;
+    }
+
+    .info {
+      .title {
+        font-size: 15px;
+      }
+
+      .details {
+        font-size: 11px;
+      }
+
+      .showtimes .time-btn {
+        font-size: 11px;
+        padding: 6px 12px;
+      }
+    }
+  }
+}
+
+@media (min-width: 1024px) {
+  .movie-card {
+    gap: 20px;
+    padding: 12px;
+
+    .poster {
+      width: 200px;
+      height: 300px;
+    }
+
+    .info {
+      .top-line {
+        font-size: 11px;
+      }
+
+      .title {
+        font-size: 18px;
+      }
+
+      .details {
+        font-size: 13px;
+      }
+
+      .showtimes .time-btn {
+        font-size: 12px;
+        padding: 7px 14px;
+      }
+    }
+  }
+}
+
+@media (min-width: 1200px) {
+  .movie-grid {
+    gap: 28px;
+  }
 }

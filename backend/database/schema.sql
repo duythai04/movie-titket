@@ -247,3 +247,152 @@ CREATE TABLE admin_logs (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (admin_id) REFERENCES users(user_id)
 );
+
+
+
+/* ===========================
+   1. MOVIES & LIÊN QUAN
+   =========================== */
+
+-- movies
+CREATE INDEX idx_movies_status ON movies(status);
+CREATE INDEX idx_movies_showing ON movies(is_showing);
+CREATE INDEX idx_movies_release ON movies(release_date);
+
+-- movie_genres
+CREATE INDEX idx_movie_genres_movie ON movie_genres(movie_id);
+CREATE INDEX idx_movie_genres_genre ON movie_genres(genre_name);
+
+-- movie_cast
+CREATE INDEX idx_movie_cast_movie ON movie_cast(movie_id);
+
+-- movie_reviews
+CREATE INDEX idx_movie_reviews_movie ON movie_reviews(movie_id);
+CREATE INDEX idx_movie_reviews_rating ON movie_reviews(rating);
+
+
+
+/* ===========================
+   2. CINEMAS & AUDITORIUMS
+   =========================== */
+
+-- cinemas
+CREATE INDEX idx_cinemas_city ON cinemas(city);
+
+-- auditoriums
+CREATE INDEX idx_auditoriums_cinema ON auditoriums(cinema_id);
+
+
+
+/* ===========================
+   3. SEAT TYPES & TICKET TYPES
+   =========================== */
+
+-- seat_types
+CREATE INDEX idx_seat_types_name ON seat_types(name);
+
+-- ticket_types
+CREATE INDEX idx_ticket_types_name ON ticket_types(name);
+
+
+
+/* ===========================
+   4. SEATS & SEAT MAP
+   =========================== */
+
+-- seats
+CREATE INDEX idx_seats_auditorium ON seats(auditorium_id);
+CREATE INDEX idx_seats_type ON seats(seat_type_id);
+CREATE INDEX idx_seats_position ON seats(auditorium_id, seat_row, seat_number);
+
+
+
+/* ===========================
+   5. SHOWTIMES
+   =========================== */
+
+-- showtimes
+CREATE INDEX idx_showtimes_movie ON showtimes(movie_id);
+CREATE INDEX idx_showtimes_auditorium ON showtimes(auditorium_id);
+CREATE INDEX idx_showtimes_date ON showtimes(show_date);
+CREATE INDEX idx_showtimes_movie_date ON showtimes(movie_id, show_date);
+
+
+
+/* ===========================
+   6. SHOWTIME_SEATS (CRITICAL)
+   =========================== */
+
+-- showtime_seats
+CREATE INDEX idx_showtime_seats_showtime ON showtime_seats(showtime_id);
+CREATE INDEX idx_showtime_seats_status ON showtime_seats(status);
+CREATE INDEX idx_showtime_seats_held_until ON showtime_seats(held_until);
+
+
+
+/* ===========================
+   7. TICKETS
+   =========================== */
+
+-- tickets
+CREATE INDEX idx_tickets_showtime ON tickets(showtime_id);
+CREATE INDEX idx_tickets_user ON tickets(user_name);
+CREATE INDEX idx_tickets_type ON tickets(ticket_type_id);
+
+
+
+/* ===========================
+   8. USERS
+   =========================== */
+
+-- users
+CREATE INDEX idx_users_role ON users(role);
+/* email đã UNIQUE nên đã có index */
+
+
+
+/* ===========================
+   9. PROMOTIONS
+   =========================== */
+
+-- promotions
+CREATE INDEX idx_promotions_active ON promotions(is_active);
+CREATE INDEX idx_promotions_date ON promotions(start_date, end_date);
+
+
+
+/* ===========================
+   10. FOOD COMBO
+   =========================== */
+
+-- food_combo
+CREATE INDEX idx_food_combo_price ON food_combo(price);
+
+
+
+/* ===========================
+   11. ORDERS & ORDER ITEMS
+   =========================== */
+
+-- orders
+CREATE INDEX idx_orders_user ON orders(user_id);
+CREATE INDEX idx_orders_status ON orders(status);
+CREATE INDEX idx_orders_created ON orders(created_at);
+
+-- order_items
+CREATE INDEX idx_order_items_order ON order_items(order_id);
+CREATE INDEX idx_order_items_ticket ON order_items(ticket_id);
+
+
+
+/* ===========================
+   12. ADMIN LOGS
+   =========================== */
+
+-- admin_logs
+CREATE INDEX idx_admin_logs_admin ON admin_logs(admin_id);
+CREATE INDEX idx_admin_logs_table ON admin_logs(target_table);
+CREATE INDEX idx_admin_logs_created ON admin_logs(created_at);
+
+
+

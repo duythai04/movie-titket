@@ -39,7 +39,7 @@ function Register() {
         phone: form.phone,
       };
 
-      const res = await axiosClient.post('/api/auth/register', payload);
+      const res = await axiosClient.post('/api/auth/register', payload);  
 
       alert(res.data.message);
 

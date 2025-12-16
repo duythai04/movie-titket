@@ -43,9 +43,7 @@ export const register = async (req, res) => {
   }
 };
 
-// ============================
-// Đăng nhập
-// ============================
+// đăng nhập
 export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -87,9 +85,7 @@ export const login = async (req, res) => {
   }
 };
 
-// ============================
-// Lấy profile
-// ============================
+// lấy profile
 export const profile = async (req, res) => {
   const user = await getUserById(req.user.user_id);
   res.json(user);
@@ -106,9 +102,7 @@ export const updateProfile = async (req, res) => {
   res.json({ message: 'Cập nhật thành công.' });
 };
 
-// ============================
-// Đổi mật khẩu
-// ============================
+// đổi mật khẩu
 export const changePassword = async (req, res) => {
   const { old_password, new_password } = req.body;
 
