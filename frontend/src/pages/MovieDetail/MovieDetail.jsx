@@ -35,7 +35,7 @@ function MovieDetail() {
   /* fecth showtimes */
   useEffect(() => {
     const fetchShowtimes = async () => {
-      const res = await axiosClient.get(`/api/showtimes/movie/${id}`);
+      const res = await axiosClient.get(`/showtimes/movie/${id}`);
       setShowtimes(res.data);
     };
     fetchShowtimes();
