@@ -18,7 +18,7 @@ export default function SeatSelector({ showtime_id }) {
     const fetchSeats = async () => {
       try {
         setLoading(true);
-        const res = await axiosClient.get(`/api/seats/showtime/${showtime_id}`);
+        const res = await axiosClient.get(`/seats/showtime/${showtime_id}`);
         setRoom(res.data.room);
         setSeats(res.data.seats);
         setSelectedSeats([]);
