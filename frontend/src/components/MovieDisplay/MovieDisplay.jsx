@@ -1,26 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import './MovieDisplay.scss';
 import { Link } from 'react-router-dom';
-import { useLoading } from '../../../src/contexts/LoadingContext';
 import axiosClient from '../../api/axiosClient';
 
 function MovieDisplay() {
   const [movies, setMovies] = useState([]);
   const [showAllnow, setShowAllnow] = useState(false);
   const [showAllComing, setShowAllComing] = useState(false);
-  const { setLoading } = useLoading();
 
   // Gọi API backend
   useEffect(() => {
     const fetchMovies = async () => {
       try {
-        setLoading(true);
         const res = await axiosClient.get('/movies');
         setMovies(res.data);
       } catch (error) {
         console.log(error);
       } finally {
-        setLoading(false);
       }
     };
 
