@@ -18,12 +18,14 @@ Dự án này nhằm mục đích tạo ra một hệ thống đặt vé xem phi
 
 ## 📦 Cấu trúc dự án
 
-movie-titket/
-├── backend/                # Server API (ví dụ: Node.js / Express.js)
-├── frontend/               # Giao diện người dùng (React)
+movie-ticket/
+├── backend/        # Server API (Node.js / Express)
+├── frontend/       # Client (React)
 ├── .gitignore
 ├── README.md
 └── ...
+
+
 - frontend chứa phần giao diện web và logic UX/UI.
 - backend chứa API cung cấp dữ liệu phim, showtime, xử lý đặt vé và quản lý người dùng.
 
