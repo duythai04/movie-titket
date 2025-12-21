@@ -1,12 +1,39 @@
 import axios from 'axios';
 
-const API_URL = import.meta.env.VITE_API_URL;
+let setLoading = null;
+
+// Cho phép inject setLoading từ bên ngoài
+export const setLoadingHandler = (handler) => {
+  setLoading = handler;
+};
 
 const axiosClient = axios.create({
-  baseURL: `${import.meta.env.VITE_API_URL}/api`,
+  baseURL: 'http://localhost:8080',
   headers: {
     'Content-Type': 'application/json',
   },
 });
+
+axiosClient.interceptors.request.use(
+  (config) => {
+    if (setLoading) setLoading(true);
+    return config;
+  },
+  (error) => {
+    if (setLoading) setLoading(false);
+    return Promise.reject(error);
+  },
+);
+
+axiosClient.interceptors.response.use(
+  (response) => {
+    if (setLoading) setLoading(false);
+    return response;
+  },
+  (error) => {
+    if (setLoading) setLoading(false);
+    return Promise.reject(error);
+  },
+);
 
 export default axiosClient;

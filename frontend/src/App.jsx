@@ -2,10 +2,11 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import './App.css';
 
-import { useLoading } from '../src/contexts/LoadingContext';
+import { useLoading } from './contexts/LoadingContext';
+import { setLoadingHandler } from './api/axiosClient';
 import GlobalLoading from './components/GlobalLoading/GlobalLoading';
 
-// Client Components
+// Client
 import Header from './components/Header/Header';
 import Home from './pages/Home/Home';
 import MovieList from './pages/MovieList/MovieList';
@@ -19,9 +20,13 @@ import ScrollToTop from './components/ScrollToTop/ScrollToTop';
 import AppAdmin from './admin/AppAddmin';
 
 function App() {
-  const { loading } = useLoading();
-
+  const { loading, setLoading } = useLoading();
   const [role, setRole] = useState(localStorage.getItem('role'));
+
+  // 🔥 QUAN TRỌNG: kết nối axios ↔ loading
+  useEffect(() => {
+    setLoadingHandler(setLoading);
+  }, [setLoading]);
 
   useEffect(() => {
     const handleStorageChange = () => {
