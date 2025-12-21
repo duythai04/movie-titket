@@ -2,9 +2,6 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import './App.css';
 
-import { useLoading } from '../src/contexts/LoadingContext';
-import GlobalLoading from './components/GlobalLoading/GlobalLoading';
-
 // Client Components
 import Header from './components/Header/Header';
 import Home from './pages/Home/Home';
@@ -15,14 +12,14 @@ import Login from './components/Auth/Login';
 import Footer from './components/Footer/Footer';
 import ScrollToTop from './components/ScrollToTop/ScrollToTop';
 
-// Admin
+// Admin (React Admin)
 import AppAdmin from './admin/AppAddmin';
 
 function App() {
-  const { loading } = useLoading();
-
+  //  Role phải ở trong state để App tự re-render khi login
   const [role, setRole] = useState(localStorage.getItem('role'));
 
+  //  Lắng nghe sự thay đổi của localStorage (login/logout)
   useEffect(() => {
     const handleStorageChange = () => {
       setRole(localStorage.getItem('role'));
@@ -32,6 +29,7 @@ function App() {
     return () => window.removeEventListener('storage', handleStorageChange);
   }, []);
 
+  // 🚀 Layout Client
   const ClientLayout = () => (
     <>
       <Header />
@@ -50,13 +48,13 @@ function App() {
 
   return (
     <>
-      {loading && <GlobalLoading />}
-
       <ScrollToTop />
 
       <Routes>
+        {/* CLIENT */}
         <Route path="/*" element={<ClientLayout />} />
 
+        {/* ADMIN → chỉ admin mới vào */}
         <Route
           path="/admin/*"
           element={role === 'admin' ? <AppAdmin /> : <Navigate to="/" replace />}
