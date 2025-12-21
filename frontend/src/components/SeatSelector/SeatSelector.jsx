@@ -34,7 +34,7 @@ export default function SeatSelector({ showtime_id }) {
   }, [showtime_id]);
 
   /* =========================
-     COUNTDOWN
+     COUNTDOWN HOLD SEAT
   ========================= */
   useEffect(() => {
     if (!showtime_id) return;
@@ -64,13 +64,12 @@ export default function SeatSelector({ showtime_id }) {
   };
 
   /* =========================
-     GROUP SEATS BY ROW (🔥 FIX CHÍNH)
+     GROUP SEATS BY ROW
   ========================= */
   const seatsByRow = useMemo(() => {
     const map = {};
-
     seats.forEach((seat) => {
-      const row = seat.seat_code.charAt(0); // ✅ FIX CHUẨN
+      const row = seat.seat_code.charAt(0);
       if (!map[row]) map[row] = [];
       map[row].push(seat);
     });
@@ -119,7 +118,7 @@ export default function SeatSelector({ showtime_id }) {
   };
 
   /* =========================
-     CLASS GHẾ
+     CLASS SEAT
   ========================= */
   const getSeatClass = (seat) => {
     let cls = 'seat';
@@ -138,8 +137,25 @@ export default function SeatSelector({ showtime_id }) {
     return sum + (seat?.price || 0);
   }, 0);
 
-  if (!showtime_id) return <div className="seat-wrapper">Vui lòng chọn suất chiếu</div>;
+  /* =========================
+     HANDLE PAYMENT
+  ========================= */
+  const handlePayment = async () => {
+    try {
+      setLoading(true);
+      await axiosClient.post('/tickets/hold', {
+        showtime_id,
+        seat_ids: selectedSeats,
+      });
+      alert('Giữ ghế thành công! Chuyển sang thanh toán');
+    } catch (err) {
+      alert('Ghế đã có người đặt, vui lòng chọn lại');
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  if (!showtime_id) return <div className="seat-wrapper">Vui lòng chọn suất chiếu</div>;
   if (loading) return <div className="seat-wrapper">Đang tải sơ đồ ghế...</div>;
 
   return (
@@ -168,6 +184,25 @@ export default function SeatSelector({ showtime_id }) {
         ))}
       </div>
 
+      {/* LEGEND */}
+      <div className="legend">
+        <div>
+          <span className="seat"></span> Ghế thường
+        </div>
+        <div>
+          <span className="seat vip"></span> Ghế VIP
+        </div>
+        <div>
+          <span className="seat couple"></span> Ghế đôi
+        </div>
+        <div>
+          <span className="seat booked"></span> Đã đặt
+        </div>
+        <div>
+          <span className="seat selected"></span> Đang chọn
+        </div>
+      </div>
+
       <div className="info">
         <p>
           Ghế đã chọn:{' '}
@@ -178,6 +213,10 @@ export default function SeatSelector({ showtime_id }) {
           <strong>Tổng tiền:</strong> {totalPrice.toLocaleString()}đ
         </p>
       </div>
+
+      <button className="btn-pay" disabled={selectedSeats.length === 0} onClick={handlePayment}>
+        Thanh toán
+      </button>
     </div>
   );
 }

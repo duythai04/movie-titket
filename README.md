@@ -58,7 +58,7 @@ movie-ticket/
 | Frontend | React                    |
 | Backend  | Node.js                  |
 | Database | MySQL                    |
-| DevOps   | Vercel / Railway / Render|
+| DevOps   | Vercel / Railway         |
 
 ## 📌 Cách cài đặt & chạy dự án
 
