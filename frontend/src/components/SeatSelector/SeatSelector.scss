@@ -6,7 +6,7 @@
   padding: 0 12px;
 }
 
-/* screen */
+/* ================= SCREEN ================= */
 .screen {
   width: 90%;
   max-width: 500px;
@@ -20,12 +20,22 @@
   font-size: 14px;
 }
 
-/* seat grid  */
+/* ================= COUNTDOWN ================= */
+.countdown {
+  margin: 10px 0 20px;
+  font-size: 15px;
+
+  strong {
+    color: #ff5252;
+  }
+}
+
+/* ================= SEAT GRID ================= */
 .seat-container {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  margin: 0 auto 40px;
+  margin: 0 auto 30px;
   width: fit-content;
 }
 
@@ -34,18 +44,19 @@
   gap: 6px;
 }
 
-/* seat */
+/* ================= SEAT ================= */
 .seat {
   width: 34px;
   height: 34px;
-  background: #3f3f3f;
+  background: #3f3f3f; // ghế thường
   border-radius: 6px;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
   font-size: 11px;
-  transition: 0.2s ease;
+  transition: all 0.2s ease;
+  user-select: none;
 }
 
 .seat:hover {
@@ -54,6 +65,7 @@
 
 .seat.selected {
   background: #1e88e5; // ghế đang chọn
+  box-shadow: 0 0 0 2px rgba(30, 136, 229, 0.4);
 }
 
 .seat.vip {
@@ -70,12 +82,85 @@
   opacity: 0.7;
 }
 
-/* info */
+/* ================= LEGEND ================= */
+.legend {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+
+  .item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+  }
+
+  .box {
+    width: 18px;
+    height: 18px;
+    border-radius: 4px;
+  }
+
+  .normal {
+    background: #3f3f3f;
+  }
+
+  .vip {
+    background: #ff9800;
+  }
+
+  .couple {
+    background: #d31511;
+  }
+
+  .booked {
+    background: #777;
+  }
+}
+
+/* ================= INFO ================= */
 .info {
   margin-top: 20px;
   font-size: 16px;
+  line-height: 1.6;
+
+  strong {
+    color: #ffeb3b;
+  }
 }
 
+/* ================= PAYMENT BUTTON ================= */
+.payment {
+  margin-top: 20px;
+
+  button {
+    padding: 12px 26px;
+    background: linear-gradient(to right, #e53935, #e35d5b);
+    color: #fff;
+    border: none;
+    border-radius: 30px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.25s ease;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(227, 57, 53, 0.5);
+    }
+
+    &:disabled {
+      background: #777;
+      cursor: not-allowed;
+      box-shadow: none;
+      transform: none;
+    }
+  }
+}
+
+/* ================= RESPONSIVE ================= */
 @media (min-width: 768px) {
   .screen {
     width: 70%;
