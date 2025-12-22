@@ -16,6 +16,14 @@
   border: 1px solid rgba(255, 255, 255, 0.08);
   cursor: pointer;
   transition: 0.25s ease;
+  opacity: 0;
+  animation: fadeUp 0.45s ease forwards;
+
+  @for $i from 1 through 20 {
+    &:nth-child(#{$i}) {
+      animation-delay: #{$i * 0.06}s;
+    }
+  }
 
   @media (hover: hover) {
     &:hover {
@@ -31,6 +39,14 @@
     border-radius: 10px;
     object-fit: cover;
     flex-shrink: 0;
+    animation: zoomIn 0.45s ease forwards;
+    transition: transform 0.25s ease;
+  }
+
+  @media (hover: hover) {
+    .movie-card:hover .poster {
+      transform: scale(1.04);
+    }
   }
 
   /* INFO */
@@ -42,6 +58,8 @@
     justify-content: flex-start;
     text-align: left;
     color: $text-color;
+    animation: fadeUp 0.4s ease forwards;
+    animation-delay: 0.15s;
 
     /* TAG */
     .top-line {
@@ -112,6 +130,7 @@
           background: #1d1d1d;
           border: 1px solid #333;
           color: $text-color;
+          transition: all 0.2s ease;
         }
       }
     }
@@ -147,6 +166,12 @@
         padding: 7px 14px;
       }
     }
+  }
+}
+
+@media (max-width: 768px) {
+  .movie-card {
+    animation-duration: 0.3s;
   }
 }
 
@@ -187,5 +212,38 @@
   .movie-grid {
     grid-template-columns: repeat(3, 1fr);
     gap: 28px;
+  }
+}
+
+/* ================= ANIMATION ================= */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes zoomIn {
+  from {
+    transform: scale(0.95);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.96);
+  }
+  100% {
+    transform: scale(1);
   }
 }
