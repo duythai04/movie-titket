@@ -18,13 +18,7 @@ Dự án này nhằm mục đích tạo ra một hệ thống đặt vé xem phi
 
 ## 📦 Cấu trúc dự án
 
-movie-ticket/
-├── backend/        # Server API (Node.js / Express)
-├── frontend/       # Client (React)
-├── .gitignore
-├── README.md
-└── ...
-
+![alt text](image.png)
 
 - frontend chứa phần giao diện web và logic UX/UI.
 - backend chứa API cung cấp dữ liệu phim, showtime, xử lý đặt vé và quản lý người dùng.
@@ -111,7 +105,7 @@ VITE_API_BASE_URL=http://localhost:5000/api
 
 ## 🎨 Giao diện demo
 
-###### Link: https://cinemabooking-peach.vercel.app/
+###### Link: https://cinema-one-brown.vercel.app/
 
 
 
