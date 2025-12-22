@@ -10,16 +10,26 @@ function MovieDisplay() {
 
   // Gọi API backend
   useEffect(() => {
+    const controller = new AbortController();
+
     const fetchMovies = async () => {
       try {
-        const res = await axiosClient.get('/movies');
+        const res = await axiosClient.get('/movies', {
+          signal: controller.signal,
+        });
         setMovies(res.data);
       } catch (error) {
-        console.log(error);
+        if (error.name !== 'CanceledError') {
+          console.error('Fetch movies error:', error);
+        }
       }
     };
 
     fetchMovies();
+
+    return () => {
+      controller.abort(); // cleanup khi unmount
+    };
   }, []);
 
   const nowShowing = movies.filter((movie) => movie.status === 'now');

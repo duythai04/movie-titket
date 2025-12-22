@@ -13,22 +13,34 @@ export default function SeatSelector({ showtime_id }) {
   useEffect(() => {
     if (!showtime_id) return;
 
+    const controller = new AbortController();
+
     const fetchSeats = async () => {
       try {
         setLoading(true);
-        const res = await axiosClient.get(`/seats/showtime/${showtime_id}`);
+
+        const res = await axiosClient.get(`/api/seats/showtime/${showtime_id}`, {
+          signal: controller.signal,
+        });
+
         setRoom(res.data.room);
         setSeats(res.data.seats);
         setSelectedSeats([]);
         setTimeLeft(5 * 60);
       } catch (err) {
-        console.error('Lỗi load ghế:', err);
+        if (err.name !== 'CanceledError') {
+          console.error('Lỗi load ghế:', err);
+        }
       } finally {
         setLoading(false);
       }
     };
 
     fetchSeats();
+
+    return () => {
+      controller.abort(); // cleanup khi unmount hoặc showtime_id đổi
+    };
   }, [showtime_id]);
 
   /* ================= COUNTDOWN ================= */

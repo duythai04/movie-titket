@@ -21,24 +21,55 @@ function MovieDetail() {
 
   /* fecth movies  */
   useEffect(() => {
+    if (!id) return;
+
+    const controller = new AbortController();
+
     const fetchMovie = async () => {
       try {
-        const res = await axiosClient.get(`/movies/${id}`);
+        setLoading(true);
+        const res = await axiosClient.get(`/movies/${id}`, {
+          signal: controller.signal,
+        });
         setMovie(res.data);
+      } catch (err) {
+        if (err.name !== 'CanceledError') {
+          console.error('Fetch movie error:', err);
+        }
       } finally {
-        setLoading(false);
+        if (!controller.signal.aborted) {
+          setLoading(false);
+        }
       }
     };
+
     fetchMovie();
+
+    return () => controller.abort();
   }, [id]);
 
   /* fecth showtimes */
   useEffect(() => {
+    if (!id) return;
+
+    const controller = new AbortController();
+
     const fetchShowtimes = async () => {
-      const res = await axiosClient.get(`/showtimes/movie/${id}`);
-      setShowtimes(res.data);
+      try {
+        const res = await axiosClient.get(`/api/showtimes/movie/${id}`, {
+          signal: controller.signal,
+        });
+        setShowtimes(res.data);
+      } catch (err) {
+        if (err.name !== 'CanceledError') {
+          console.error('Fetch showtimes error:', err);
+        }
+      }
     };
+
     fetchShowtimes();
+
+    return () => controller.abort();
   }, [id]);
 
   /* group showtimes */
