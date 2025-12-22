@@ -6,8 +6,6 @@ export const getSeatsByShowtimeController = async (req, res) => {
 
     const data = await getSeatsByShowtime(showtime_id);
 
-
-
     return res.status(200).json({
       room: data.length
         ? {
@@ -20,11 +18,16 @@ export const getSeatsByShowtimeController = async (req, res) => {
         seat_id: s.seat_id,
         seat_code: s.seat_code,
         seat_type: s.seat_type.toUpperCase(),
-        price: s.price,
-        status: s.status ?? 'AVAILABLE', 
+
+        // giá chuẩn
+        price: s.seat_price,
+        base_price: s.base_price,
+        seat_extra_price: s.seat_extra_price,
+
+        // status đồng bộ
+        status: s.status.toLowerCase(),
       })),
     });
-
   } catch (err) {
     console.error('Lỗi load ghế:', err);
     return res.status(500).json({

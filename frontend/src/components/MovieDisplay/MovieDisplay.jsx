@@ -16,7 +16,6 @@ function MovieDisplay() {
         setMovies(res.data);
       } catch (error) {
         console.log(error);
-      } finally {
       }
     };
 
