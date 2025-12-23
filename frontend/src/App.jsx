@@ -11,7 +11,7 @@ import Register from './components/Auth/Register';
 import Login from './components/Auth/Login';
 import Footer from './components/Footer/Footer';
 import ScrollToTop from './components/ScrollToTop/ScrollToTop';
-import TrailerModal from './components/TraillerModal/TrailerModal';
+import TrailerModal from './components/TrailerModal/TrailerModal';
 
 // Admin (React Admin)
 import AppAdmin from './admin/AppAddmin';
@@ -41,7 +41,7 @@ function App() {
           <Route path="/movies/:id" element={<MovieDetail />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/trailer" element={<TransitionEvent />} />
+          <Route path="/trailer" element={<TrailerModal />} />
         </Routes>
       </div>
       <Footer />
