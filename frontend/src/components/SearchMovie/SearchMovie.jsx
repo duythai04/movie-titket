@@ -12,7 +12,7 @@ const SearchMovie = ({ keyword = '', setKeyword, hideInput = false, onClose }) =
       try {
         setLoading(true);
 
-        const res = await axiosClient.get('/api/search', {
+        const res = await axiosClient.get('/search', {
           params: keyword.trim() ? { q: keyword } : {},
         });
 
