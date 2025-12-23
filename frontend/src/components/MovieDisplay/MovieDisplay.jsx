@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './MovieDisplay.scss';
 import { Link } from 'react-router-dom';
 import axiosClient from '../../api/axiosClient';
-import TrailerModal from '../Trailler/TrailerModal';
+import TrailerModal from '../TrailerModal/TrailerModal';
 
 function MovieDisplay() {
   const [movies, setMovies] = useState([]);
