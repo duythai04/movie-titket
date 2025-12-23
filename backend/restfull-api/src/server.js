@@ -29,7 +29,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/showtimes', showtimeRoutes);
 app.use('/api/seats', seatRoutes);
 app.use('/api/combos', foodComboRoutes);
-app.use('/api/search', searchMovieRoutes);
+app.use('/api/api/search', searchMovieRoutes);
 
 const PORT = process.env.PORT;
 
