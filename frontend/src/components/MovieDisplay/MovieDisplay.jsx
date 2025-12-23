@@ -2,13 +2,14 @@ import React, { useState, useEffect } from 'react';
 import './MovieDisplay.scss';
 import { Link } from 'react-router-dom';
 import axiosClient from '../../api/axiosClient';
+import TrailerModal from '../Trailler/TrailerModal';
 
 function MovieDisplay() {
   const [movies, setMovies] = useState([]);
   const [showAllnow, setShowAllnow] = useState(false);
   const [showAllComing, setShowAllComing] = useState(false);
+  const [trailerUrl, setTrailerUrl] = useState(null);
 
-  // Gọi API backend
   useEffect(() => {
     const controller = new AbortController();
 
@@ -27,9 +28,7 @@ function MovieDisplay() {
 
     fetchMovies();
 
-    return () => {
-      controller.abort(); // cleanup khi unmount
-    };
+    return () => controller.abort();
   }, []);
 
   const nowShowing = movies.filter((movie) => movie.status === 'now');
@@ -44,7 +43,9 @@ function MovieDisplay() {
               <img src={item.poster_url} alt={item.title_vi} />
 
               <div className="overlay">
-                <button className="btn-trailer">Xem trailer</button>
+                <button className="btn-trailer" onClick={() => setTrailerUrl(item.trailer_url)}>
+                  Xem trailer
+                </button>
 
                 <Link to={`/movies/${item.movie_id}`}>
                   <button className="btn-ticket">Đặt vé</button>
@@ -74,6 +75,9 @@ function MovieDisplay() {
       <div className="more">
         {!showAllComing && <button onClick={() => setShowAllComing(true)}>Xem thêm</button>}
       </div>
+
+      {/* trailermodal */}
+      <TrailerModal trailerUrl={trailerUrl} onClose={() => setTrailerUrl(null)} />
     </div>
   );
 }
