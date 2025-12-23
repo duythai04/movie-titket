@@ -56,7 +56,7 @@ function MovieDetail() {
 
     const fetchShowtimes = async () => {
       try {
-        const res = await axiosClient.get(`/api/showtimes/movie/${id}`, {
+        const res = await axiosClient.get(`/showtimes/movie/${id}`, {
           signal: controller.signal,
         });
         setShowtimes(res.data);
