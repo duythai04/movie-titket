@@ -6,6 +6,7 @@ import authRoutes from './routes/auth.route.js';
 import showtimeRoutes from './routes/showtime.route.js';
 import seatRoutes from './routes/seats.route.js';
 import foodComboRoutes from './routes/foodcombo.route.js';
+import searchMovieRoutes from './routes/search.route.js';
 
 import { env } from './config/environment.js';
 
@@ -28,6 +29,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/showtimes', showtimeRoutes);
 app.use('/api/seats', seatRoutes);
 app.use('/api/combos', foodComboRoutes);
+app.use('/api/search', searchMovieRoutes);
 
 const PORT = process.env.PORT;
 

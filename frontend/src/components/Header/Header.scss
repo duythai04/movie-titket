@@ -27,6 +27,29 @@
     justify-content: space-between;
   }
 
+  .search-overlay {
+    position: fixed;
+    top: 100px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 40px;
+    animation: fadeIn 0.3s ease-out;
+    pointer-events: none;
+    z-index: 999;
+    .search-box {
+      width: 100%;
+      max-width: 600px;
+      padding: 0 24px;
+      animation: slideDown 0.4s ease-out;
+      pointer-events: auto;
+    }
+  }
+
   .header-logo {
     background-color: transparent;
     h1 {
@@ -87,9 +110,48 @@
     .mobile-search {
       display: none;
       width: 100%;
+
+      @media (max-width: 768px) {
+        display: flex;
+        justify-content: center;
+      }
+
+      input {
+        width: 100%;
+        max-width: 360px;
+        padding: 10px 14px;
+        border-radius: 8px;
+        border: 1px solid #333;
+        background: transparent;
+        color: $text-color;
+        font-size: 14px;
+
+        &::placeholder {
+          color: #888;
+        }
+
+        &:focus {
+          border-color: $button-color;
+          background: #000;
+        }
+      }
+    }
+
+    .btn-combo {
+      background: transparent;
+      border-color: #333;
+      @media (max-width: 768px) {
+        display: none;
+      }
+    }
+
+    /* ================= MOBILE SEARCH INPUT ================= */
+
+    .mobile-search {
+      display: none;
+      width: 100%;
       padding: 10px 16px;
       box-sizing: border-box;
-      background: transparent;
 
       @media (max-width: 768px) {
         display: flex;
@@ -107,7 +169,6 @@
         color: $text-color;
         font-size: 14px;
         outline: none;
-        box-sizing: border-box;
         transition: all 0.25s ease;
 
         &::placeholder {
@@ -121,17 +182,9 @@
         }
       }
     }
-
-    .btn-combo {
-      background: transparent;
-      border-color: #333;
-      @media (max-width: 768px) {
-        display: none;
-      }
-    }
   }
 
-  /* icons */
+  /* ---------- ICONS ---------- */
   .header-icons {
     display: flex;
     align-items: center;
@@ -153,7 +206,7 @@
     }
   }
 
-  /* menu button mobile */
+  /* ---------- MENU BUTTON (MOBILE) ---------- */
   .menu-toggle {
     display: none;
     background: none;
