@@ -1,8 +1,8 @@
-# 🎬 Movie Ticket — Ứng Dụng Đặt Vé Xem Phim
+#  Movie Ticket — Ứng Dụng Đặt Vé Xem Phim
 Movie Ticket là một dự án web ứng dụng đặt vé xem phim trực tuyến được xây dựng với kiến trúc frontend + backend giúp người dùng xem lịch phim, chọn suất chiếu, chọn ghế và đặt vé một cách dễ dàng.
 
 
-## 💡 Mục tiêu
+##  Mục tiêu
 
 Dự án này nhằm mục đích tạo ra một hệ thống đặt vé xem phim đầy đủ tính năng, hỗ trợ:
 
@@ -16,36 +16,36 @@ Dự án này nhằm mục đích tạo ra một hệ thống đặt vé xem phi
 
 - Quản lý đặt vé của người dùng.
 
-## 📦 Cấu trúc dự án
+##  Cấu trúc dự án
 
 ![alt text](image.png)
 
 - frontend chứa phần giao diện web và logic UX/UI.
 - backend chứa API cung cấp dữ liệu phim, showtime, xử lý đặt vé và quản lý người dùng.
 
-## 🚀 Tính năng chính
+##  Tính năng chính
 
-* ⭐ Người dùng
+*  Người dùng
 
-- 📽️ Xem danh sách phim đang chiếu
+-  Xem danh sách phim đang chiếu
 
-- 📅 Chọn lịch chiếu theo ngày & giờ
+-  Chọn lịch chiếu theo ngày & giờ
 
-- 🪑 Chọn ghế trên sơ đồ chỗ ngồi
+-  Chọn ghế trên sơ đồ chỗ ngồi
 
-- 🎟️ Đặt vé & xem thông tin vé
+-  Đặt vé & xem thông tin vé
 
-- 🔐 Đăng ký / Đăng nhập
+-  Đăng ký / Đăng nhập
 
-* 🛠️ Quản trị (tùy triển khai)
+*  Quản trị (tùy triển khai)
 
-- 🎬 Thêm / sửa / xóa phim
+-  Thêm / sửa / xóa phim
 
-- 🗓️ Quản lý lịch chiếu
+-  Quản lý lịch chiếu
 
-- 📊 Xem thống kê đặt vé
+-  Xem thống kê đặt vé
 
-## 🛠️ Công nghệ sử dụng
+##  Công nghệ sử dụng
 
 | Phần     | Công nghệ                |
 | -------- | -------------------------|
@@ -54,7 +54,7 @@ Dự án này nhằm mục đích tạo ra một hệ thống đặt vé xem phi
 | Database | MySQL                    |
 | DevOps   | Vercel / Railway         |
 
-## 📌 Cách cài đặt & chạy dự án
+##  Cách cài đặt & chạy dự án
 
 #### 1. Clone repository
 
@@ -79,7 +79,7 @@ npm install
 npm run dev
 
 
-## 📌 Cấu hình môi trường
+##  Cấu hình môi trường
 
 Bạn cần tạo một file .env (hoặc .env.local) ở cả backend và frontend chứa các biến môi trường như:
 
@@ -91,7 +91,7 @@ JWT_SECRET=...
 ##### Frontend
 VITE_API_BASE_URL=http://localhost:5000/api
 
-## 📊 API Endpoints
+##  API Endpoints
 
 | Method | Endpoint         | Mô tả              |
 | ------ | ---------------- | ------------------ |
@@ -103,7 +103,7 @@ VITE_API_BASE_URL=http://localhost:5000/api
 | GET    | `/bookings/user` | Lấy lịch sử đặt vé |
 
 
-## 🎨 Giao diện demo
+##  Giao diện demo
 
 ###### Link: https://cinema-one-brown.vercel.app/
 
