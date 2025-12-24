@@ -50,7 +50,6 @@ const SearchMovie = ({ keyword = '', setKeyword, hideInput = false, onClose }) =
         <p className="search-state empty">Không tìm thấy phim phù hợp</p>
       )}
 
-      {/* result */}
       {movies.length > 0 && (
         <div className="movie-list">
           {movies.map((movie) => (
