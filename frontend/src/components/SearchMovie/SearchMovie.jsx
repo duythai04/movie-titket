@@ -30,7 +30,7 @@ const SearchMovie = ({ keyword = '', setKeyword, hideInput = false, onClose }) =
 
   return (
     <div className="search-movie">
-      {/* INPUT */}
+      {/* input */}
       {!hideInput && (
         <div className="search-input-wrapper">
           <input
@@ -43,14 +43,14 @@ const SearchMovie = ({ keyword = '', setKeyword, hideInput = false, onClose }) =
         </div>
       )}
 
-      {/* STATE */}
+      {/* state */}
       {loading && <p className="search-state">Đang tìm kiếm…</p>}
 
       {!loading && keyword && movies.length === 0 && (
         <p className="search-state empty">Không tìm thấy phim phù hợp</p>
       )}
 
-      {/* RESULT */}
+      {/* result */}
       {movies.length > 0 && (
         <div className="movie-list">
           {movies.map((movie) => (
