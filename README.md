@@ -18,41 +18,7 @@ Dự án này nhằm mục đích tạo ra một hệ thống đặt vé xem phi
 
 ## 📦 Cấu trúc dự án
 
-MOVIE-APP/
-├── .vscode/                 # Cấu hình riêng cho VS Code
-└── movie-titket/            # Thư mục chính của ứng dụng
-    ├── backend/             # Mã nguồn phía Server
-    │   ├── database/        # Cấu hình và kết nối cơ sở dữ liệu
-    │   ├── node_modules/    # Các thư viện backend đã cài đặt
-    │   ├── restfull-api/    # Định nghĩa các routes và controllers API
-    │   ├── package-lock.json
-    │   └── package.json     # Các dependency của backend
-    └── frontend/            # Mã nguồn phía Client (React + Vite)
-        ├── node_modules/    # Các thư viện frontend đã cài đặt
-        ├── public/          # Các tài nguyên tĩnh công khai
-        ├── src/             # Thư mục mã nguồn chính
-        │   ├── admin/       # Các trang/hợp phần quản trị
-        │   ├── api/         # Cấu hình gọi API (Axios/Fetch)
-        │   ├── assets/      # Hình ảnh, font chữ, icons
-        │   ├── components/  # Các component dùng chung (Button, Card,...)
-        │   ├── contexts/    # Quản lý trạng thái (React Context API)
-        │   ├── pages/       # Các trang chính của ứng dụng
-        │   ├── styles/      # Các file CSS/SCSS toàn cục
-        │   ├── App.css
-        │   ├── App.jsx      # Component gốc của ứng dụng
-        │   ├── index.css
-        │   └── main.jsx     # Điểm nhập (entry point) của React
-        ├── .env             # Biến môi trường (API Key, Base URL)
-        ├── .gitignore       # Các file bỏ qua khi dùng Git
-        ├── .prettierrc      # Cấu hình định dạng code
-        ├── eslint.config.js # Cấu hình kiểm lỗi code
-        ├── index.html       # File HTML chính
-        ├── package-lock.json
-        ├── package.json     # Các dependency của frontend
-        ├── vercel.json      # Cấu hình để deploy lên Vercel
-        └── vite.config.js   # Cấu hình công cụ build Vite
-├── image.png
-└── README.md                # Tài liệu hướng dẫn dự án
+![alt text](image.png)
 
 - frontend chứa phần giao diện web và logic UX/UI.
 - backend chứa API cung cấp dữ liệu phim, showtime, xử lý đặt vé và quản lý người dùng.
