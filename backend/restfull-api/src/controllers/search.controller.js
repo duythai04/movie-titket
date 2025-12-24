@@ -1,4 +1,4 @@
-import { getSearchMovie } from "../models/search.models.js";
+import { getSearchMovie } from "../models/search.model.js";
 
 export const searchMovie = async (req, res) => {
   try {
