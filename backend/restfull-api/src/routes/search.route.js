@@ -3,8 +3,7 @@ import { searchMovie } from '../controllers/search.controller.js';
 
 const router = express.Router();
 
-router.get('/', searchMovie);
+router.get('/search', searchMovie);
 
-console.log('✅ search.route.js loaded');
 
 export default router;

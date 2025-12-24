@@ -30,8 +30,7 @@ app.use('/api/showtimes', showtimeRoutes);
 app.use('/api/seats', seatRoutes);
 app.use('/api/combos', foodComboRoutes);
 
-console.log('✅ app.js starting');
-app.use('/api/search', searchMovieRoutes);
+app.use('/api', searchMovieRoutes);
 
 
 const PORT = process.env.PORT;
