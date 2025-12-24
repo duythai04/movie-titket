@@ -18,7 +18,7 @@ Dự án này nhằm mục đích tạo ra một hệ thống đặt vé xem phi
 
 ##  Cấu trúc dự án
 
-![alt text](image.png)
+![alt text](image_1.png)
 
 - frontend chứa phần giao diện web và logic UX/UI.
 - backend chứa API cung cấp dữ liệu phim, showtime, xử lý đặt vé và quản lý người dùng.
