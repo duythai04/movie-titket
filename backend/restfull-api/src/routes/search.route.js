@@ -1,4 +1,3 @@
-console.log('✅ search.route.js HAS BEEN LOADED');
 import express from 'express';
 import { searchMovie } from '../controllers/search.controller.js';
 
