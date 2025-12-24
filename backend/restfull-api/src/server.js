@@ -29,9 +29,9 @@ app.use('/api/auth', authRoutes);
 app.use('/api/showtimes', showtimeRoutes);
 app.use('/api/seats', seatRoutes);
 app.use('/api/combos', foodComboRoutes);
-
+console.log('✅ before register search route');
 app.use('/api', searchMovieRoutes);
-
+console.log('✅ after register search route');
 
 const PORT = process.env.PORT;
 

@@ -1,3 +1,5 @@
+console.log('✅ search.route loaded');
+
 import express from 'express';
 import { searchMovie } from '../controllers/search.controller.js';
 
