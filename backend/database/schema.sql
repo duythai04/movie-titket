@@ -396,3 +396,6 @@ CREATE INDEX idx_admin_logs_created ON admin_logs(created_at);
 
 
 
+UPDATE movies
+SET banner_url = 'https://media.lottecinemavn.com/Media/MovieFile/MovieImg/202509/11934_206_100001.jpg'
+WHERE movie_id = '6';
